@@ -18,7 +18,8 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["react", "jest", "node"]
   },
   "exclude": [
     "node_modules",
