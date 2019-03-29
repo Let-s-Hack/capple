@@ -13,20 +13,43 @@ interface ICard {
 };
 
 export default class Card extends React.Component<ICard> {
+  public state: any = {
+    mainImage: userImage02,
+    prevIndex: 0,
+    thumbnails: [
+      { image: userImage02, isActive: true },
+      { image: userImage01, isActive: false },
+      { image: userImage03, isActive: false }
+    ]
+  };
+
+  changeImage(index: any): void {
+    let tmp: any = this.state.thumbnails;
+    tmp[this.state.prevIndex].isActive = false;
+    tmp[index].isActive = true;
+
+    this.setState({ thumbnails: tmp });
+    this.setState({ prevIndex: index });
+    this.setState({ mainImage: this.state.thumbnails[index].image });
+  }
+
   render() {
     return (
       <Container>
         <New />
-        <Image src={userImage02} alt="プロフィール画像"/>
+        <Image src={this.state.mainImage} alt="プロフィール画像"/>
         <Inner>
           <Profile>
             <Title>{this.props.userName}</Title>
             <Text>{this.props.userAge}歳・{this.props.userPlace}</Text>
           </Profile>
           <ThumbnailList>
-            <Thumbnail isActive={true}><img src={userImage02} alt="サムネ1" /></Thumbnail>
-            <Thumbnail isActive={false}><img src={userImage01} alt="サムネ2" /></Thumbnail>
-            <Thumbnail isActive={false}><img src={userImage03} alt="サムネ3" /></Thumbnail>
+            { this.state.thumbnails.map((thumbnail: any, index: number) => {
+              return <Thumbnail key={index} onClick={this.changeImage.bind(this, index)} isActive={thumbnail.isActive}><img src={thumbnail.image} alt="サムネ1" /></Thumbnail>
+            }) }
+            {/* <Thumbnail onClick={() => this.changeImage(userImage02)} isActive={true}><img src={userImage02} alt="サムネ1" /></Thumbnail>
+            <Thumbnail onClick={() => this.changeImage(userImage01)} isActive={false}><img src={userImage01} alt="サムネ2" /></Thumbnail>
+            <Thumbnail onClick={() => this.changeImage(userImage03)} isActive={false}><img src={userImage03} alt="サムネ3" /></Thumbnail> */}
           </ThumbnailList>
         </Inner>
         <Apeal>

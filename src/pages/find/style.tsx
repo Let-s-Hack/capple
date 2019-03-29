@@ -41,7 +41,7 @@ export const Container = styled.div`
     height: 100vh;
     z-index: 1000;
     background: white;
-    animation: ${fadeIn} 0.5s forwards, ${displayNone} 0s 0.5s forwards;
+    animation: ${fadeIn} 0.8s forwards, ${displayNone} 0s 0.8s forwards;
   }
 `;
 
