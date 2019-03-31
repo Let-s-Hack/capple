@@ -23,7 +23,7 @@ export default class Card extends React.Component<ICard> {
     ]
   };
 
-  changeImage(index: any): void {
+  changeImage(index: number): void {
     let tmp: any = this.state.thumbnails;
     tmp[this.state.prevIndex].isActive = false;
     tmp[index].isActive = true;
