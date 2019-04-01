@@ -22,21 +22,39 @@ export default class Detail extends React.Component {
             <img src={this.state.mainImage} alt="プロフィール画像"/>
           </Image>
           <Profile>
-            
-            <MainTextGroup>
-              <MainTitle>ごりら</MainTitle>
-              <New />
-              <Text>23歳・神奈川</Text>
-              <Confirmation>年確済み</Confirmation>
-            </MainTextGroup>
-            <ThumbnailList>
-              <Thumbnail isActive={true}><img src={userImage02} alt="サムネ1" /></Thumbnail>
-              <Thumbnail isActive={false}><img src={userImage01} alt="サムネ2" /></Thumbnail>
-              <Thumbnail isActive={false}><img src={userImage03} alt="サムネ3" /></Thumbnail>
-            </ThumbnailList>
+            <ProfileMain>
+              <MainTextGroup>
+                <MainTitle>ごりら<New /></MainTitle>
+                <Text>
+                  23歳・神奈川
+                  <Confirmation>年確済み</Confirmation>
+                </Text>
+              </MainTextGroup>
+              <ThumbnailList>
+                <Thumbnail isActive={true}><img src={userImage02} alt="サムネ1" /></Thumbnail>
+                <Thumbnail isActive={false}><img src={userImage01} alt="サムネ2" /></Thumbnail>
+                <Thumbnail isActive={false}><img src={userImage03} alt="サムネ3" /></Thumbnail>
+              </ThumbnailList>
+            </ProfileMain>
             <CategoryGroup>
               <Title>興味があるカテゴリー</Title>
               <CategoryList>
+                <CategoryCard>
+                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                  <CategoryText>アウトドア好き</CategoryText>
+                </CategoryCard>
+                <CategoryCard>
+                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                  <CategoryText>旅行好き</CategoryText>
+                </CategoryCard>
+                <CategoryCard>
+                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                  <CategoryText>アウトドア好き</CategoryText>
+                </CategoryCard>
+                <CategoryCard>
+                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                  <CategoryText>旅行好き</CategoryText>
+                </CategoryCard>
                 <CategoryCard>
                   <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
                   <CategoryText>アウトドア好き</CategoryText>
@@ -139,13 +157,24 @@ const Profile = styled.div`
   background: white;
 `;
 
-const MainTextGroup = styled.div``;
+const ProfileMain = styled.div`
+  display: flex;
+`;
+
+const MainTextGroup = styled.div`
+  flex: 1 0 auto;
+`;
 
 const MainTitle = styled.h2`
+  margin-bottom: 11px;
+  font-size: 22px;
+  letter-spacing: 0.37px;
   color: ${color.text};
 `;
 
 const Text = styled.p`
+  font-size: 13px;
+  letter-spacing: 0.1px;
   color: ${color.subText};
 `;
 
@@ -190,9 +219,17 @@ const Thumbnail = styled.li`
 
 const CategoryGroup = styled.div``;
 
-const CategoryList = styled.ul``;
+const CategoryList = styled.ul`
+  display: flex;
+  width: 100vw;
+  overflow: auto;
+  margin-left: -16px;
+  list-style: none;
+`;
 
-const CategoryCard = styled.li``;
+const CategoryCard = styled.li`
+  margin-left: 16px;
+`;
 
 const CategoryImage = styled.img`
   width: 94px;
