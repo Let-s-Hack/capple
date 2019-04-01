@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { color } from '../assets/stylesheets/variables';
-import userImage01 from '../assets/images/users/user-image01.jpg';
-import userImage02 from '../assets/images/users/user-image04.jpg';
+import userImage01 from '../assets/images/users/user-image04.jpg';
+import userImage02 from '../assets/images/users/user-image01.jpg';
 import userImage03 from '../assets/images/users/user-image03.jpg';
 import iconNew from '../assets/images/icons/new.svg';
 
@@ -17,8 +17,8 @@ export default class Card extends React.Component<ICard> {
     mainImage: userImage02,
     prevIndex: 0,
     thumbnails: [
-      { image: userImage02, isActive: true },
-      { image: userImage01, isActive: false },
+      { image: userImage01, isActive: true },
+      { image: userImage02, isActive: false },
       { image: userImage03, isActive: false }
     ]
   };
