@@ -263,7 +263,7 @@ const CategoryList = styled.ul`
 
 const CategoryCard = styled.li`
   margin-left: 16px;
-  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.08);
+  /* box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.08); */
 `;
 
 const CategoryImage = styled.img`
