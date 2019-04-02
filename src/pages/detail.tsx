@@ -32,11 +32,15 @@ export default class Detail extends React.Component {
                 </Text>
               </MainTextGroup>
               <ThumbnailList>
-                <Thumbnail isActive={true}><img src={userImage02} alt="サムネ1" /></Thumbnail>
-                <Thumbnail isActive={false}><img src={userImage01} alt="サムネ2" /></Thumbnail>
+                <Thumbnail isActive={true}><img src={userImage01} alt="サムネ1" /></Thumbnail>
+                <Thumbnail isActive={false}><img src={userImage02} alt="サムネ2" /></Thumbnail>
                 <Thumbnail isActive={false}><img src={userImage03} alt="サムネ3" /></Thumbnail>
               </ThumbnailList>
             </ProfileMain>
+            <Introduction>
+              <IntroductionTitle>自己紹介</IntroductionTitle>
+              <IntroductionText>動物園に会いにきてください！待ってます。<br/>よろしくおねがいします！</IntroductionText>
+            </Introduction>
             <CategoryGroup>
               <Title>興味があるカテゴリー</Title>
               <CategoryList>
@@ -67,7 +71,7 @@ export default class Detail extends React.Component {
               </CategoryList>
             </CategoryGroup>
             <ProfileDetailGroup>
-              <Title></Title>
+              <Title>プロフィール</Title>
               <ProfileDetailList>
                 <ProfileDetail>
                   <ProfileDetailTitle>出身地</ProfileDetailTitle>
@@ -200,7 +204,7 @@ const Confirmation = styled.span`
   font-size: 11px;
   color: ${color.success};
   letter-spacing: 0.08px;
-  
+
   &::before {
     content: '';
     width: 14px;
@@ -249,8 +253,28 @@ const Thumbnail = styled.li`
   }
 `;
 
-const CategoryGroup = styled.div`
+const Introduction = styled.div`
   margin-top: 48px;
+`;
+
+const IntroductionTitle = styled.h2`
+  font-size: 17px;
+  font-weight: bold;
+  color: ${color.text};
+  letter-spacing: -0.1px;
+`;
+
+const IntroductionText = styled.p`
+  margin-top: 20px;
+  font-size: 14px;
+  color: ${color.text};
+  letter-spacing: 0.11px;
+  line-height: 23px;
+`;
+
+
+const CategoryGroup = styled.div`
+  margin-top: 52px;
 `;
 
 const CategoryList = styled.ul`
@@ -269,18 +293,48 @@ const CategoryCard = styled.li`
 const CategoryImage = styled.img`
   width: 94px;
   height: 94px;
+  margin-bottom: 8px;
   object-fit: cover;
   border-radius: 16px;
 `;
 
-const CategoryText = styled.p``;
+const CategoryText = styled.p`
+  font-size: 14px;
+  color: ${color.text};
+  letter-spacing: 0.11px;
+`;
 
-const ProfileDetailGroup = styled.div``;
+const ProfileDetailGroup = styled.div`
+  margin-top: 72px;
+`;
 
-const ProfileDetailList = styled.ul``;
+const ProfileDetailList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  list-style: none;
+`;
 
-const ProfileDetail = styled.li``;
+const ProfileDetail = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 42px;
 
-const ProfileDetailTitle = styled.div``;
+  & + & {
+    border-top: 1px solid #EAECED;
+  }
+`;
 
-const ProfileDetailText = styled.div``;
+const ProfileDetailTitle = styled.div`
+  color: ${color.profile};
+  font-size: 14px;
+  color: #ACB1B9;
+  letter-spacing: 0.11px;
+`;
+
+const ProfileDetailText = styled.div`
+  font-size: 14px;
+  color: ${color.profile};
+  letter-spacing: 0.11px;
+`;
