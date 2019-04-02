@@ -2,8 +2,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { color } from '../assets/stylesheets/variables';
 import iconClose from '../assets/images/icons/close_.svg';
-// import iconConfirmation from '../assets/images/icons/confirmation.svg';
+import iconConfirmation from '../assets/images/icons/confirmation.svg';
 import iconOption from '../assets/images/icons/option.svg';
+import iconNew from '../assets/images/icons/new.svg';
 import userImage01 from '../assets/images/users/user-image04.jpg';
 import userImage02 from '../assets/images/users/user-image01.jpg';
 import userImage03 from '../assets/images/users/user-image03.jpg';
@@ -151,7 +152,7 @@ const OptionButton = styled.div`
 const Profile = styled.div`
   position: relative;
   z-index: 100;
-  padding: 28px 16px 0 16px;
+  padding: 0 16px;
   margin-top: -16px;
   border-radius: 16px 16px 0;
   background: white;
@@ -163,31 +164,63 @@ const ProfileMain = styled.div`
 
 const MainTextGroup = styled.div`
   flex: 1 0 auto;
+  margin-top: 28px;
+  font-weight: bold;
 `;
 
 const MainTitle = styled.h2`
+  display: flex;
   margin-bottom: 11px;
   font-size: 22px;
   letter-spacing: 0.37px;
   color: ${color.text};
 `;
 
+const New = styled.span`
+  display: block;
+  width: 48px;
+  height: 24px;
+  margin-left: 4px;
+  border-radius: 24px;
+  background: ${color.accent} url(${iconNew}) center / 70% no-repeat;
+`;
+
 const Text = styled.p`
+  display: flex;
+  align-items: center;
   font-size: 13px;
   letter-spacing: 0.1px;
   color: ${color.subText};
 `;
 
-const New = styled.span``;
+const Confirmation = styled.span`
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  font-size: 11px;
+  color: ${color.success};
+  letter-spacing: 0.08px;
+  
+  &::before {
+    content: '';
+    width: 14px;
+    height: 18px;
+    margin-right: 4px;
+    background: url(${iconConfirmation}) center / contain no-repeat;
+  }
+`;
 
-const Confirmation = styled.p``;
-
-const Title = styled.h3``;
+const Title = styled.h3`
+  font-size: 17px;
+  color: ${color.text};
+  letter-spacing: -0.1px;
+`;
 
 const ThumbnailList = styled.ul`
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  margin: 0 0 12px auto;
+  margin: 21px 0 12px auto;
   list-style: none;
 `;
 
@@ -196,11 +229,10 @@ interface IThumbnail {
 };
 
 const Thumbnail = styled.li`
-  flex: 0 0 54px;
-  height: 54px;
+  flex: 0 0 56px;
+  height: 56px;
   border-radius: 50%;
   background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   box-sizing: border-box;
   border: solid ${(props: IThumbnail) => props.isActive ? color.accentText + ' 4px' : 'white 2px'};
@@ -217,18 +249,21 @@ const Thumbnail = styled.li`
   }
 `;
 
-const CategoryGroup = styled.div``;
+const CategoryGroup = styled.div`
+  margin-top: 48px;
+`;
 
 const CategoryList = styled.ul`
   display: flex;
   width: 100vw;
   overflow: auto;
-  margin-left: -16px;
+  margin: 24px 0 0 -16px;
   list-style: none;
 `;
 
 const CategoryCard = styled.li`
   margin-left: 16px;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.08);
 `;
 
 const CategoryImage = styled.img`

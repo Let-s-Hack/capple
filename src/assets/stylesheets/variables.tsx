@@ -5,4 +5,5 @@ export const color = {
   subText: '#78808e',
   accentText: '#ea4c89',
   accent: '#ff3b65',
+  success: '#50B6B6',
 }
