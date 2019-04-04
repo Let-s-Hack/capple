@@ -11,84 +11,89 @@ import userImage03 from '../assets/images/users/user-image03.jpg';
 
 export default class Detail extends React.Component {
   public state: any = {
-    mainImage: userImage01
+    mainImage: userImage01,
+    userName: 'ごりら',
+    userAge: 24,
+    userPlace: '神奈川',
+    isConfirmed: true,
+    introduction: <span>動物園に会いにきてください！待ってます。<br/>よろしくおねがいします！</span>,
   };
 
   public render() {
     return (
-        <Container>
-          <Image>
-            <CloseButton />
-            <OptionButton />
-            <img src={this.state.mainImage} alt="プロフィール画像"/>
-          </Image>
-          <Profile>
-            <ProfileMain>
-              <MainTextGroup>
-                <MainTitle>ごりら<New /></MainTitle>
-                <Text>
-                  23歳・神奈川
-                  <Confirmation>年確済み</Confirmation>
-                </Text>
-              </MainTextGroup>
-              <ThumbnailList>
-                <Thumbnail isActive={true}><img src={userImage01} alt="サムネ1" /></Thumbnail>
-                <Thumbnail isActive={false}><img src={userImage02} alt="サムネ2" /></Thumbnail>
-                <Thumbnail isActive={false}><img src={userImage03} alt="サムネ3" /></Thumbnail>
-              </ThumbnailList>
-            </ProfileMain>
-            <Introduction>
-              <IntroductionTitle>自己紹介</IntroductionTitle>
-              <IntroductionText>動物園に会いにきてください！待ってます。<br/>よろしくおねがいします！</IntroductionText>
-            </Introduction>
-            <CategoryGroup>
-              <Title>興味があるカテゴリー</Title>
-              <CategoryList>
-                <CategoryCard>
-                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
-                  <CategoryText>アウトドア好き</CategoryText>
-                </CategoryCard>
-                <CategoryCard>
-                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
-                  <CategoryText>旅行好き</CategoryText>
-                </CategoryCard>
-                <CategoryCard>
-                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
-                  <CategoryText>アウトドア好き</CategoryText>
-                </CategoryCard>
-                <CategoryCard>
-                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
-                  <CategoryText>旅行好き</CategoryText>
-                </CategoryCard>
-                <CategoryCard>
-                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
-                  <CategoryText>アウトドア好き</CategoryText>
-                </CategoryCard>
-                <CategoryCard>
-                  <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
-                  <CategoryText>旅行好き</CategoryText>
-                </CategoryCard>
-              </CategoryList>
-            </CategoryGroup>
-            <ProfileDetailGroup>
-              <Title>プロフィール</Title>
-              <ProfileDetailList>
-                <ProfileDetail>
-                  <ProfileDetailTitle>出身地</ProfileDetailTitle>
-                  <ProfileDetailText>神奈川県</ProfileDetailText>
-                </ProfileDetail>
-                <ProfileDetail>
-                  <ProfileDetailTitle>血液型</ProfileDetailTitle>
-                  <ProfileDetailText>A</ProfileDetailText>
-                </ProfileDetail>
-                <ProfileDetail>
-                  <ProfileDetailTitle>体型</ProfileDetailTitle>
-                  <ProfileDetailText>筋肉質</ProfileDetailText>
-                </ProfileDetail>
-              </ProfileDetailList>
-            </ProfileDetailGroup>
-          </Profile>
-        </Container>
+      <Container>
+        <Image>
+          <CloseButton />
+          <OptionButton />
+          <img src={this.state.mainImage} alt="プロフィール画像"/>
+        </Image>
+        <Profile>
+          <ProfileMain>
+            <MainTextGroup>
+              <MainTitle>{this.state.userName}<New /></MainTitle>
+              <Text>
+                {this.state.userAge}歳・{this.state.userPlace}
+                <Confirmation isConfirmed={this.state.isConfirmed}>年確済み</Confirmation>
+              </Text>
+            </MainTextGroup>
+            <ThumbnailList>
+              <Thumbnail isActive={true}><img src={userImage01} alt="サムネ1" /></Thumbnail>
+              <Thumbnail isActive={false}><img src={userImage02} alt="サムネ2" /></Thumbnail>
+              <Thumbnail isActive={false}><img src={userImage03} alt="サムネ3" /></Thumbnail>
+            </ThumbnailList>
+          </ProfileMain>
+          <Introduction>
+            <IntroductionTitle>自己紹介</IntroductionTitle>
+            <IntroductionText>{this.state.introduction}</IntroductionText>
+          </Introduction>
+          <CategoryGroup>
+            <Title>興味があるカテゴリー</Title>
+            <CategoryList>
+              <CategoryCard>
+                <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                <CategoryText>アウトドア好き</CategoryText>
+              </CategoryCard>
+              <CategoryCard>
+                <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                <CategoryText>旅行好き</CategoryText>
+              </CategoryCard>
+              <CategoryCard>
+                <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                <CategoryText>アウトドア好き</CategoryText>
+              </CategoryCard>
+              <CategoryCard>
+                <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                <CategoryText>旅行好き</CategoryText>
+              </CategoryCard>
+              <CategoryCard>
+                <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                <CategoryText>アウトドア好き</CategoryText>
+              </CategoryCard>
+              <CategoryCard>
+                <CategoryImage src={this.state.mainImage} alt="アウトドアが好き" />
+                <CategoryText>旅行好き</CategoryText>
+              </CategoryCard>
+            </CategoryList>
+          </CategoryGroup>
+          <ProfileDetailGroup>
+            <Title>プロフィール</Title>
+            <ProfileDetailList>
+              <ProfileDetail>
+                <ProfileDetailTitle>出身地</ProfileDetailTitle>
+                <ProfileDetailText>神奈川県</ProfileDetailText>
+              </ProfileDetail>
+              <ProfileDetail>
+                <ProfileDetailTitle>血液型</ProfileDetailTitle>
+                <ProfileDetailText>A</ProfileDetailText>
+              </ProfileDetail>
+              <ProfileDetail>
+                <ProfileDetailTitle>体型</ProfileDetailTitle>
+                <ProfileDetailText>筋肉質</ProfileDetailText>
+              </ProfileDetail>
+            </ProfileDetailList>
+          </ProfileDetailGroup>
+        </Profile>
+      </Container>
     );
   }
 }
@@ -197,8 +202,12 @@ const Text = styled.p`
   color: ${color.subText};
 `;
 
+interface IConfirmation {
+  isConfirmed: boolean;
+};
+
 const Confirmation = styled.span`
-  display: flex;
+  ${(props: IConfirmation) => props.isConfirmed ? 'display: flex;' : 'display: none;'}
   align-items: center;
   margin-left: 8px;
   font-size: 11px;
@@ -272,7 +281,6 @@ const IntroductionText = styled.p`
   line-height: 23px;
 `;
 
-
 const CategoryGroup = styled.div`
   margin-top: 52px;
 `;
@@ -287,7 +295,6 @@ const CategoryList = styled.ul`
 
 const CategoryCard = styled.li`
   margin-left: 16px;
-  /* box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.08); */
 `;
 
 const CategoryImage = styled.img`
@@ -296,6 +303,8 @@ const CategoryImage = styled.img`
   margin-bottom: 8px;
   object-fit: cover;
   border-radius: 16px;
+  border: solid 1px rgba(0, 0, 0, 0.08);
+  /*  */
 `;
 
 const CategoryText = styled.p`
@@ -335,6 +344,6 @@ const ProfileDetailTitle = styled.div`
 
 const ProfileDetailText = styled.div`
   font-size: 14px;
-  color: ${color.profile};
+  color: ${color.text};
   letter-spacing: 0.11px;
 `;
