@@ -1,12 +1,12 @@
 import styled, { keyframes } from 'styled-components';
 import { color } from '../../assets/stylesheets/variables';
-import iconArrow from '../../assets/images/icons/arrow.svg';
-import iconCard from '../../assets/images/icons/card.svg';
-import iconLike from '../../assets/images/icons/like.svg';
-import iconSuperLike from '../../assets/images/icons/super-like.svg';
-import iconUnLike from '../../assets/images/icons/unlike.svg';
-import iconSetting from '../../assets/images/icons/setting.svg';
-import iconShop from '../../assets/images/icons/shop.svg';
+import iconArrow from 'images/icons/arrow.svg';
+import iconCard from 'images/icons/card.svg';
+import iconLike from 'images/icons/like.svg';
+import iconSuperLike from 'images/icons/super-like.svg';
+import iconUnLike from 'images/icons/unlike.svg';
+import iconSetting from 'images/icons/setting.svg';
+import iconShop from 'images/icons/shop.svg';
 
 const fadeIn = keyframes`
   from {
@@ -90,10 +90,6 @@ export const ButtonGroup = styled.div`
   justify-content: center;
   height: 100px;
 `;
-
-// export const Button = styled.css`
-
-// `;
 
 export const Like = styled.div`
   width: 69px;

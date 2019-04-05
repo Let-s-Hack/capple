@@ -19,7 +19,10 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
-    "types": ["react", "jest", "node"]
+    "types": ["react", "jest", "node"],
+    "paths": {
+      "images/*": ["src/assets/images/*"],
+    }
   },
   "exclude": [
     "node_modules",
