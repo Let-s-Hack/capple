@@ -41,7 +41,7 @@ class Opening extends React.Component<Props, State> {
     const setRedirect = (): void => {
       this.setState({ redirect: true })
     }
-    
+
     const renderRedirect = (): any => {
       if (this.state.redirect) {
         return <Redirect to='/find' />
@@ -51,7 +51,7 @@ class Opening extends React.Component<Props, State> {
     return (
       <React.Fragment>
         {renderRedirect()}
-        <OpeningContainer> 
+        <OpeningContainer>
           <Lottie
             options={defaultOptions}
             isStopped={this.state.isStopped}
