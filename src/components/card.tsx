@@ -1,60 +1,47 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { color } from '../assets/stylesheets/variables';
-import userImage01 from '../assets/images/users/user-image04.jpg';
-import userImage02 from '../assets/images/users/user-image01.jpg';
-import userImage03 from '../assets/images/users/user-image03.jpg';
-import iconNew from '../assets/images/icons/new.svg';
+import iconNew from 'images/icons/new.svg';
 
 interface ICard {
-  userName: string;
-  userAge: number;
-  userPlace: string;
+  user: any;
+  updateState: (state: any) => void;
 };
 
 export default class Card extends React.Component<ICard> {
-  public state: any = {
-    mainImage: userImage02,
-    prevIndex: 0,
-    thumbnails: [
-      { image: userImage01, isActive: true },
-      { image: userImage02, isActive: false },
-      { image: userImage03, isActive: false }
-    ]
-  };
-
   changeImage(index: number): void {
-    let tmp: any = this.state.thumbnails;
-    tmp[this.state.prevIndex].isActive = false;
-    tmp[index].isActive = true;
+    let state: any = this.props;
+    state.user.thumbnails[state.user.prevIndex].isActive = false;
+    state.user.thumbnails[index].isActive = true;
+    state.user.mainImage = state.user.thumbnails[index].image;
+    state.user.prevIndex = index;
 
-    this.setState({ thumbnails: tmp });
-    this.setState({ prevIndex: index });
-    this.setState({ mainImage: this.state.thumbnails[index].image });
+    this.props.updateState(state);
   }
 
   render() {
     return (
       <Container>
         <New />
-        <Image src={this.state.mainImage} alt="プロフィール画像"/>
+        <Image src={this.props.user.mainImage} alt="プロフィール画像"/>
         <Inner>
           <Profile>
-            <Title>{this.props.userName}</Title>
-            <Text>{this.props.userAge}歳・{this.props.userPlace}</Text>
+            <Title>{this.props.user.name}</Title>
+            <Text>{this.props.user.age}歳・{this.props.user.place}</Text>
           </Profile>
           <ThumbnailList>
-            { this.state.thumbnails.map((thumbnail: any, index: number) => {
-              return <Thumbnail key={index} onClick={this.changeImage.bind(this, index)} isActive={thumbnail.isActive}><img src={thumbnail.image} alt="サムネ1" /></Thumbnail>
+            { this.props.user.thumbnails.map((thumbnail: any, index: number) => {
+              return (
+                <Thumbnail
+                  key={index}
+                  onClick={this.changeImage.bind(this, index) }
+                  isActive={thumbnail.isActive}><img src={thumbnail.image} />
+                </Thumbnail>
+              )
             }) }
-            {/* <Thumbnail onClick={() => this.changeImage(userImage02)} isActive={true}><img src={userImage02} alt="サムネ1" /></Thumbnail>
-            <Thumbnail onClick={() => this.changeImage(userImage01)} isActive={false}><img src={userImage01} alt="サムネ2" /></Thumbnail>
-            <Thumbnail onClick={() => this.changeImage(userImage03)} isActive={false}><img src={userImage03} alt="サムネ3" /></Thumbnail> */}
           </ThumbnailList>
         </Inner>
-        <Apeal>
-          <strong>美容関係</strong>の仕事をしています
-        </Apeal>
+        <Apeal>{this.props.user.appealText}</Apeal>
       </Container>
     )
   }
