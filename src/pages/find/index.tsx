@@ -4,6 +4,7 @@ import {
   Card, New, Image, Inner, Profile, Title, Text, Thumbnail, ThumbnailList,
   Apeal, ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
 } from './style';
+import Detail from '../detail';
 
 interface IFind {
   user: any;
@@ -24,6 +25,7 @@ export default class Find extends React.Component<IFind> {
   render() {
     return (
       <React.Fragment>
+        {this.props.user.isDetail && <Detail user={this.props.user} updateState={this.props.updateState.bind(this)} />}
         <Container>
           <Header>
             <HeaderArrow />
@@ -33,7 +35,11 @@ export default class Find extends React.Component<IFind> {
               <p>255</p>
             </HeaderCard>
           </Header>
-          <Card>
+          <Card onClick={() => {
+            let state = this.props;
+            state.user.isDetail = true;
+            this.props.updateState(state);
+          }}>
             <New />
             <Image src={this.props.user.mainImage} alt="プロフィール画像"/>
             <Inner>
@@ -42,7 +48,7 @@ export default class Find extends React.Component<IFind> {
                 <Text>{this.props.user.age}歳・{this.props.user.place}</Text>
               </Profile>
               <ThumbnailList>
-                { this.props.user.thumbnails.map((thumbnail: any, index: number) => {
+                {this.props.user.thumbnails.map((thumbnail: any, index: number) => {
                   return (
                     <Thumbnail
                       key={index}
@@ -55,7 +61,7 @@ export default class Find extends React.Component<IFind> {
                       isActive={thumbnail.isActive}><img src={thumbnail.image} />
                     </Thumbnail>
                   )
-                }) }
+                })}
               </ThumbnailList>
             </Inner>
             <Apeal>{this.props.user.appealText}</Apeal>

@@ -6,10 +6,14 @@ import iconOption from 'images/icons/option.svg';
 import iconNew from 'images/icons/new.svg';
 
 export const Container = styled.div`
+position: absolute;
+top: 0;
+left: 0;
 display: flex;
 flex-direction: column;
+width: 100vw;
 height: 100vh;
-z-index: 10;
+z-index: 1000;
 
 &::before {
   content: '';
@@ -195,6 +199,7 @@ margin-top: 52px;
 export const CategoryList = styled.ul`
 display: flex;
 width: 100vw;
+height: 152px;
 overflow: auto;
 margin: 24px 0 0 -16px;
 list-style: none;
@@ -211,7 +216,6 @@ margin-bottom: 8px;
 object-fit: cover;
 border-radius: 16px;
 border: solid 1px rgba(0, 0, 0, 0.08);
-/*  */
 `;
 
 export const CategoryText = styled.p`
@@ -221,7 +225,7 @@ letter-spacing: 0.11px;
 `;
 
 export const ProfileDetailGroup = styled.div`
-margin-top: 72px;
+margin-top: 56px;
 `;
 
 export const ProfileDetailList = styled.ul`

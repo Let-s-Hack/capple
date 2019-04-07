@@ -26,7 +26,11 @@ export default class Detail extends React.Component<IDetail> {
     return (
       <Container>
         <Image>
-          <CloseButton />
+          <CloseButton onClick={() => {
+            let state = this.props;
+            state.user.isDetail = false;
+            this.props.updateState(state);
+          }} />
           <OptionButton />
           <img src={this.props.user.mainImage} alt="プロフィール画像"/>
         </Image>
