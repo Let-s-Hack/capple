@@ -1,11 +1,31 @@
 import styled from 'styled-components';
+import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
 import iconClose from 'images/icons/close_.svg';
 import iconConfirmation from 'images/icons/confirmation.svg';
 import iconOption from 'images/icons/option.svg';
 import iconNew from 'images/icons/new.svg';
 
-export const Container = styled.div`
+const PoseContainer = posed.div({
+  visible: {
+    opacity: 1,
+    applyAtStart: {
+      display: 'flex',
+    },
+  },
+  hidden: {
+    // 変更対象の値がないとうまく動いてくれない
+    opacity: 1,
+    transition: {
+      duration: 300,
+    },
+    applyAtEnd: {
+      display: 'none',
+    },
+  }
+});
+
+export const Container = styled(PoseContainer)`
 position: absolute;
 top: 0;
 left: 0;
@@ -25,13 +45,57 @@ z-index: 1000;
 }
 `;
 
-export const Image = styled.div`
-position: relative;
-width: 100%;
-height: 360px;
+const PoseImage = posed.div({
+  visible: {
+    y: 0,
+    // 一見無駄な書き方に見えるが、アニメーション前後で同じ形式じゃないといけない
+    width: 'calc(100% - 0px)',
+    minHeight: 'calc((0vh - 0px) + 360px)',
+    borderRadius: 0,
+    transition: {
+      ease: [0.08, 0.69, 0.2, 0.99],
+      duration: 300,
+    },
+  },
+  hidden: {
+    y: 88,
+    width: 'calc(100% - 32px)',
+    minHeight: 'calc((100vh - 198px) + 0px)',
+    borderRadius: 16,
+    transition: {
+      ease: [0.08, 0.69, 0.2, 0.99],
+      duration: 300,
+    },
+  }
+});
 
-&::before {
-  content: '';
+export const Image = styled(PoseImage)`
+  position: relative;
+  width: 100%;
+  height: 360px;
+  min-height: 360px;
+  margin: 0 auto;
+  overflow: hidden;
+
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+const PoseHeader = posed.div({
+  visible: {
+    opacity: 1,
+  },
+  hidden: {
+    applyAtStart: {
+      opacity: 0,
+    },
+  }
+});
+
+export const Header = styled(PoseHeader)`
   position: absolute;
   top: 0;
   left: 0;
@@ -40,13 +104,6 @@ height: 360px;
   width: 100%;
   height: 64px;
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.00) 100%);
-}
-
-> img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 `;
 
 export const CloseButton = styled.div`
@@ -69,7 +126,27 @@ height: 18px;
 background: url(${iconOption}) center / contain no-repeat;
 `;
 
-export const Profile = styled.div`
+const PoseProfile = posed.div({
+  visible: {
+    delay: 100,
+    transition: {
+      ease: [0.08, 0.69, 0.2, 0.99],
+      duration: 300,
+    },
+    y: '0%',
+    opacity: 1,
+  },
+  hidden: {
+    transition: {
+      ease: 'easeInOut',
+      duration: 200,
+    },
+    opacity: 0,
+    applyAtEnd: { y: '100%' },
+  },
+});
+
+export const Profile = styled(PoseProfile)`
 position: relative;
 z-index: 100;
 padding: 0 16px;

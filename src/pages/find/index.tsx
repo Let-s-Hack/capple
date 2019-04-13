@@ -25,7 +25,7 @@ export default class Find extends React.Component<IFind> {
   render() {
     return (
       <React.Fragment>
-        {this.props.user.isDetail && <Detail user={this.props.user} updateState={this.props.updateState.bind(this)} />}
+        <Detail user={this.props.user} updateState={this.props.updateState.bind(this)} />
         <Container>
           <Header>
             <HeaderArrow />

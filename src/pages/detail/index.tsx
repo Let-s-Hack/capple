@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {
-  Container, Image, CloseButton, OptionButton, Profile, ProfileMain, MainTextGroup, MainTitle, New, Text, Confirmation,
+  Container, Image, Header, CloseButton, OptionButton, Profile, ProfileMain, MainTextGroup, MainTitle, New, Text, Confirmation,
   ThumbnailList, Thumbnail, Introduction, IntroductionTitle, IntroductionText,
   CategoryGroup, Title, CategoryList, CategoryCard, CategoryImage, CategoryText,
-  ProfileDetailGroup, ProfileDetail, ProfileDetailList, ProfileDetailTitle, ProfileDetailText
+  ProfileDetailGroup, ProfileDetail, ProfileDetailList, ProfileDetailTitle, ProfileDetailText,
 } from './style';
 
 interface IDetail {
@@ -24,17 +24,19 @@ export default class Detail extends React.Component<IDetail> {
 
   public render() {
     return (
-      <Container>
-        <Image>
+      <Container pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
+        <Header pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
           <CloseButton onClick={() => {
             let state = this.props;
             state.user.isDetail = false;
             this.props.updateState(state);
           }} />
           <OptionButton />
+        </Header>
+        <Image pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
           <img src={this.props.user.mainImage} alt="プロフィール画像"/>
         </Image>
-        <Profile>
+        <Profile pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
           <ProfileMain>
             <MainTextGroup>
               <MainTitle>{this.props.user.name}<New /></MainTitle>

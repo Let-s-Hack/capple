@@ -5,9 +5,9 @@ import Opening from './pages/opening';
 import Find from './pages/find';
 import Detail from './pages/detail';
 
-import userImage01 from 'images/users/user-image04.jpg';
+import userImage01 from 'images/users/user-image05.jpg';
 import userImage02 from 'images/users/user-image01.jpg';
-import userImage03 from 'images/users/user-image03.jpg';
+import userImage03 from 'images/users/user-image02.jpg';
 
 class App extends React.Component {
   updateState(state: any): void {
@@ -16,7 +16,7 @@ class App extends React.Component {
 
   public state: any = {
     user: {
-      name: "ごりら",
+      name: "あざらし",
       age: 23,
       place: "神奈川",
       mainImage: userImage01,
