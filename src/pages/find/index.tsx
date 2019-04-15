@@ -1,38 +1,31 @@
 import * as React from 'react';
 import {
-  Container, Header, HeaderArrow, HeaderCard, HeaderTitle,
-  ButtonGroup, Like, SuperLike, UnLike, Setting, Shop
+  Container, Header, HeaderArrow, HeaderTitle, HeaderCard,
+  Card, New, Image, Inner, Profile, Title, Text, Thumbnail, ThumbnailList,
+  Apeal, ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
 } from './style';
-import Card from '../../components/card';
+import Detail from '../detail';
 
-import userImage01 from 'images/users/user-image04.jpg';
-import userImage02 from 'images/users/user-image01.jpg';
-import userImage03 from 'images/users/user-image03.jpg';
+interface IFind {
+  user: any;
+  updateState: (state: any) => void;
+};
 
-export default class Find extends React.Component {
-  public state: any = {
-    user: {
-      name: "ごりら",
-      age: 23,
-      place: "神奈川",
-      mainImage: userImage01,
-      prevIndex: 0,
-      appealText: '美容関係の仕事をしています',
-      thumbnails: [
-        { image: userImage01, isActive: true },
-        { image: userImage02, isActive: false },
-        { image: userImage03, isActive: false }
-      ]
-    }
-  };
+export default class Find extends React.Component<IFind> {
+  changeImage(index: number): void {
+    let state: any = this.props;
+    state.user.thumbnails[state.user.prevIndex].isActive = false;
+    state.user.thumbnails[index].isActive = true;
+    state.user.mainImage = state.user.thumbnails[index].image;
+    state.user.prevIndex = index;
 
-  updateState(state: any): void {
-    this.setState(state);
+    this.props.updateState(state);
   }
 
   render() {
     return (
       <React.Fragment>
+        <Detail user={this.props.user} updateState={this.props.updateState.bind(this)} />
         <Container>
           <Header>
             <HeaderArrow />
@@ -42,10 +35,37 @@ export default class Find extends React.Component {
               <p>255</p>
             </HeaderCard>
           </Header>
-          <Card
-            user={this.state.user}
-            updateState={this.updateState.bind(this)}
-          />
+          <Card onClick={() => {
+            let state = this.props;
+            state.user.isDetail = true;
+            this.props.updateState(state);
+          }}>
+            <New />
+            <Image src={this.props.user.mainImage} alt="プロフィール画像"/>
+            <Inner>
+              <Profile>
+                <Title>{this.props.user.name}</Title>
+                <Text>{this.props.user.age}歳・{this.props.user.place}</Text>
+              </Profile>
+              <ThumbnailList>
+                {this.props.user.thumbnails.map((thumbnail: any, index: number) => {
+                  return (
+                    <Thumbnail
+                      key={index}
+                      onClick={
+                        e => {
+                            e.stopPropagation();
+                            this.changeImage(index);
+                        }
+                      }
+                      isActive={thumbnail.isActive}><img src={thumbnail.image} />
+                    </Thumbnail>
+                  )
+                })}
+              </ThumbnailList>
+            </Inner>
+            <Apeal>{this.props.user.appealText}</Apeal>
+          </Card>
           <ButtonGroup>
             <Setting />
             <Like />
