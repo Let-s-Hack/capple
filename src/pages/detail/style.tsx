@@ -9,6 +9,7 @@ import iconNew from 'images/icons/new.svg';
 const PoseContainer = posed.div({
   visible: {
     opacity: 1,
+    background: 'rgba(255, 255, 255, 1)',
     applyAtStart: {
       display: 'flex',
     },
@@ -16,13 +17,14 @@ const PoseContainer = posed.div({
   hidden: {
     // 変更対象の値がないとうまく動いてくれない
     opacity: 1,
+    background: 'rgba(255, 255, 255, 0)',
     transition: {
       duration: 300,
     },
     applyAtEnd: {
       display: 'none',
     },
-  }
+  },
 });
 
 export const Container = styled(PoseContainer)`
