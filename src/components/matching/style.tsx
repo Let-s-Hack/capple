@@ -37,7 +37,15 @@ export const Container = styled(PoseContainer)`
   width: 100vw;
   height: 100vh;
   z-index: 1100;
-  background: #F270A6;
+
+  &::before {
+    content: '';
+    position: fixed;
+    width: calc(100vw + 20px);
+    height: calc(100vh + 20px);
+    z-index: -1;
+    background: rgba(237, 82, 146, 0.8);
+  }
 `;
 
 const PoseTitle = posed.h2(PoseDefault);
@@ -131,14 +139,13 @@ const PoseMatchingIcon = posed.div({
   visible: {
     opacity: 1,
     transition: {
+      damping: 15,
       duration: 600,
       delay: 1300,
     },
   },
   hidden: {
     opacity: 0,
-    transition: {
-    },
   },
 });
 

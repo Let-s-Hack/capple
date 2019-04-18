@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
 import iconArrow from 'images/icons/arrow.svg';
 import iconCard from 'images/icons/card.svg';
@@ -27,7 +28,16 @@ const displayNone = keyframes`
   }
 `;
 
-export const Container = styled.div`
+const PoseContainer = posed.div({
+  blur: {
+    filter: 'blur(12px)',
+  },
+  default: {
+    filter: 'blur(0px)',
+  },
+});
+
+export const Container = styled(PoseContainer)`
   position: absolute;
   top: 0;
   left: 0;
