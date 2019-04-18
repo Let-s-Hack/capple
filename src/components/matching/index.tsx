@@ -24,14 +24,13 @@ export default class Matching extends React.Component<IMatching> {
     return (
       <Container pose={this.props.user.isMatching ? 'visible' : 'hidden'}>
         <MatchingResult>
-          <Title>アップル誕生</Title>
+          <Title />
           <ImageGroup>
             <MyImage
               src={this.props.user.mainImage}
               alt="プロフィール画像"
-              pose={this.props.user.isMatching ? 'visible' : 'hidden'}
             />
-            <MatchingIcon pose={this.props.user.isMatching ? 'visible' : 'hidden'} />
+            <MatchingIcon />
             <PartnerImageList>
               <PartnerImage src={this.props.user.thumbnails[0].image} alt="プロフィール画像" />
             </PartnerImageList>

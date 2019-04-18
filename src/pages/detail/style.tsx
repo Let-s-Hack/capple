@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
-import iconClose from 'images/icons/close_.svg';
+import iconClose from 'images/icons/close.svg';
 import iconConfirmation from 'images/icons/confirmation.svg';
 import iconOption from 'images/icons/option.svg';
 import iconNew from 'images/icons/new.svg';

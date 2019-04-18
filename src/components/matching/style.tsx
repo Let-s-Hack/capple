@@ -2,10 +2,21 @@ import styled from 'styled-components';
 import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
 import iconLike from 'images/icons/like.svg';
+import logoType from 'images/logo-type.svg';
+
+const PoseDefault = {
+  visible: {
+    opacity: 1,
+  },
+  hidden: {
+    opacity: 0,
+  },
+};
 
 const PoseContainer = posed.div({
   visible: {
     opacity: 1,
+    delayChildren: 400,
     applyAtStart: {
       display: 'flex',
     },
@@ -29,8 +40,12 @@ export const Container = styled(PoseContainer)`
   background: #F270A6;
 `;
 
-export const Title = styled.h2`
-  color: white;
+const PoseTitle = posed.h2(PoseDefault);
+
+export const Title = styled(PoseTitle)`
+  width: 256px;
+  height: 38px;
+  background: url(${logoType}) center / contain no-repeat;
 `;
 
 export const MatchingResult = styled.div`
@@ -57,18 +72,13 @@ const PoseMyImage = posed.img({
     transform: 'rotate(0deg)',
     transition: {
       duration: 600,
-      delay: 300,
+      delay: 700,
       ease: [.18, .97, .14, .98],
     },
     applyAtStart: {
       opacity: 0.2,
       marginLeft: '-48vw',
       transform: 'rotate(-90deg)',
-    },
-  },
-  hidden: {
-    transition: {
-      delay: 300,
     },
   },
 });
@@ -95,18 +105,13 @@ const PosePartnerImage = posed.img({
     transform: 'rotate(0deg)',
     transition: {
       duration: 600,
-      delay: 300,
+      delay: 700,
       ease: [.18, .97, .14, .98],
     },
     applyAtStart: {
       marginLeft: '148vw',
       opacity: 0.2,
       transform: 'rotate(90deg)',
-    },
-  },
-  hidden: {
-    transition: {
-      delay: 300,
     },
   },
 });
@@ -127,7 +132,7 @@ const PoseMatchingIcon = posed.div({
     opacity: 1,
     transition: {
       duration: 600,
-      delay: 900,
+      delay: 1300,
     },
   },
   hidden: {
@@ -145,7 +150,9 @@ export const MatchingIcon = styled(PoseMatchingIcon)`
   background: white url(${iconLike}) center 18px / 100% 28px no-repeat;
 `;
 
-export const Text = styled.p`
+const PoseText = posed.p(PoseDefault);
+
+export const Text = styled(PoseText)`
   color: white;
   text-align: center;
   font-weight: bold;
@@ -165,7 +172,9 @@ export const ButtonGroup = styled.ul`
   }
 `;
 
-export const MessageButton = styled.li`
+const PoseButton = posed.li(PoseDefault);
+
+const Button = styled(PoseButton)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,24 +182,17 @@ export const MessageButton = styled.li`
   height: 48px;
   border-radius: 24px;
   text-align: center;
-  background: white;
-  color: ${color.accentText};
   font-weight: bold;
   font-size: 15px;
   letter-spacing: -0.04px;
 `;
 
-export const CloseButton = styled.li`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 48px;
-  border-radius: 24px;
-  text-align: center;
+export const MessageButton = styled(Button)`
+  background: white;
+  color: ${color.accentText};
+`;
+
+export const CloseButton = styled(Button)`
   background: rgba(255, 255, 255, 0.2);
   color: white;
-  font-weight: bold;
-  font-size: 15px;
-  letter-spacing: -0.04px;
 `;
