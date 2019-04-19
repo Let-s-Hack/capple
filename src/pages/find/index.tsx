@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Container, Header, HeaderArrow, HeaderTitle, HeaderCard,
+  Container, CardUnLikeInner, UnLikeIcon, UnLikeText, Header, HeaderArrow, HeaderTitle, HeaderCard,
   Card, New, Image, Inner, Profile, Title, Text, Thumbnail, ThumbnailList,
   Apeal, ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
 } from './style';
@@ -35,11 +35,18 @@ export default class Find extends React.Component<IFind> {
               <p>255</p>
             </HeaderCard>
           </Header>
-          <Card onClick={() => {
-            let state = this.props;
-            state.user.isDetail = true;
-            this.props.updateState(state);
-          }}>
+          <Card
+            onClick={() => {
+              let state = this.props;
+              state.user.isDetail = true;
+              this.props.updateState(state);
+            }}
+            pose={this.props.user.isUnLike ? 'unLike' : 'default'}
+          >
+            <CardUnLikeInner>
+              <UnLikeIcon />
+              <UnLikeText>イマイチ<span>...</span></UnLikeText>
+            </CardUnLikeInner>
             <New />
             <Image src={this.props.user.mainImage} alt="プロフィール画像"/>
             <Inner>
@@ -70,7 +77,13 @@ export default class Find extends React.Component<IFind> {
             <Setting />
             <Like />
             <SuperLike />
-            <UnLike />
+            <UnLike
+              onClick={() => {
+                let state = this.props;
+                state.user.isUnLike = true;
+                this.props.updateState(state);
+              }}
+            />
             <Shop />
           </ButtonGroup>
         </Container>
