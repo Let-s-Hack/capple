@@ -28,16 +28,11 @@ const displayNone = keyframes`
   }
 `;
 
-const PoseContainer = posed.div({
-  blur: {
-    filter: 'blur(12px)',
-  },
-  default: {
-    filter: 'blur(0px)',
-  },
-});
+interface IContainer {
+  isMatching: boolean;
+};
 
-export const Container = styled(PoseContainer)`
+export const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -46,6 +41,8 @@ export const Container = styled(PoseContainer)`
   height: 100vh;
   z-index: 10;
   overflow: hidden;
+  transition: all 0.3s ease;
+  filter: ${(props: IContainer) => props.isMatching ? 'blur(12px)' : 'none'};
 
   &::before {
     content: '';

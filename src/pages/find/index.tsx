@@ -28,7 +28,7 @@ export default class Find extends React.Component<IFind> {
       <React.Fragment>
         <Matching user={this.props.user} updateState={this.props.updateState.bind(this)} />
         <Detail user={this.props.user} updateState={this.props.updateState.bind(this)} />
-        <Container pose={this.props.user.isMatching ? 'blur' : 'default'}>
+        <Container isMatching={this.props.user.isMatching}>
           <Header>
             <HeaderArrow />
             <HeaderTitle>アウトドアが好き</HeaderTitle>

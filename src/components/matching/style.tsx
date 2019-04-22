@@ -44,7 +44,7 @@ export const Container = styled(PoseContainer)`
     width: calc(100vw + 20px);
     height: calc(100vh + 20px);
     z-index: -1;
-    background: rgba(237, 82, 146, 0.8);
+    background: rgba(234, 92, 151, 0.8);
   }
 `;
 
@@ -57,6 +57,7 @@ export const Title = styled(PoseTitle)`
 `;
 
 export const MatchingResult = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -138,18 +139,33 @@ export const PartnerImage = styled(PosePartnerImage)`
 const PoseMatchingIcon = posed.div({
   visible: {
     opacity: 1,
+    scale: 1,
     transition: {
-      damping: 15,
-      duration: 600,
-      delay: 1300,
+      default: {
+        delay: 1300,
+      },
+      scale: ({ from, to }: any) => ({
+        type: 'keyframes',
+        values: [from, 1.2, 0.9, 1.1, 0.95, to],
+        times:  [0, 0.3, 0.48, 0.66, 0.84, 1],
+        duration: 600,
+        delay: 1300,
+      }),
     },
   },
   hidden: {
     opacity: 0,
+    scale: 0.8,
+    transition: {
+      delay: 400,
+      duration: 0,
+    },
   },
 });
 
 export const MatchingIcon = styled(PoseMatchingIcon)`
+  position: relative;
+  z-index: 1199;
   flex: 0 0 60px;
   height: 60px;
   margin: auto -14px 4px -14px;
@@ -166,6 +182,117 @@ export const Text = styled(PoseText)`
   line-height: 24px;
   font-size: 15px;
 `;
+
+export const ParticleOuter = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1190;
+  margin: auto;
+`;
+
+interface IParticle {
+  amount: number;
+  index: number;
+  i: number;
+  type: string;
+  dist: {min: number, max: number};
+};
+
+const getRandomArbitrary = (min: number, max: number) => {
+  return Math.random() * (max - min) + min;
+}
+
+export const PoseParticle = posed.div({
+  visible: {
+    opacity: 1,
+    transform: (props: IParticle) => {
+      const aboutDist = getRandomArbitrary(props.dist.min, props.dist.max);
+
+      return `translateX(${getCoordinateRotation(props, aboutDist, 'x')}px) translateY(${getCoordinateRotation(props, aboutDist, 'y')}px) rotate(45deg)`
+    },
+    transition: {
+      default: (props: IParticle) => ({
+        delay: 1600 + props.index * 100,
+        duration: 1000,
+        ease: [0, 0.85, 0.37, 0.99],
+      }),
+      opacity: ({ from, to }: any) => ({
+        type: 'keyframes',
+        values: [to, to, from],
+        times:  [0, 0.8, 1],
+        duration: 1300,
+        delay: 1600,
+      }),
+    },
+  },
+  hidden: {
+    opacity: 0,
+    transform: 'translateX(0px) translateY(0px) rotate(0deg)',
+    transition: {
+      delay: 400,
+      duration: 0,
+    },
+  },
+});
+
+// 座標回転の計算
+const getCoordinateRotation = (props: IParticle, dist: number = 160, axis: string) => {
+  // 角度
+  const angle = 360 / props.amount * props.i + props.index * 30;
+
+  if (axis === 'x') return Math.floor(dist * Math.cos( angle * (Math.PI / 180) ));
+
+  return Math.floor(dist * Math.sin( angle * (Math.PI / 180) ));
+};
+
+export const Particle = styled(PoseParticle)`
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  margin: auto;
+
+  ${(props: IParticle) => getParticleShape(props)}
+`;
+
+const getParticleShape = (props: IParticle) => {
+  switch(props.type) {
+    case 'square':
+      return `
+        width: 35px;
+        height: 35px;
+        border: 3px solid white;
+        margin-bottom: ${props.i};
+      `;
+    case 'triangle':
+      return `
+        width: 0;
+        border: 25px solid transparent;
+        border-left-width: 16px;
+        border-right-width: 16px;
+        border-bottom-color: white;
+      `;
+    case 'circle':
+      return `
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: white;
+      `;
+    case 'ring':
+      return `
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        border: 2px solid white;
+      `;
+    default:
+      return ``;
+  }
+};
 
 export const ButtonGroup = styled.ul`
   width: 100%;

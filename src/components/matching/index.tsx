@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {
-  Container, MatchingResult, ImageGroup, MyImage, Title, PartnerImageList, PartnerImage, MatchingIcon, Text,
-  ButtonGroup, MessageButton, CloseButton
+  Container, MatchingResult, ImageGroup, MyImage, Title,
+  PartnerImageList, PartnerImage, MatchingIcon, Text, ParticleOuter, Particle,
+  ButtonGroup, MessageButton, CloseButton,
 } from './style';
 
 interface IMatching {
@@ -21,6 +22,43 @@ export default class Matching extends React.Component<IMatching> {
   }
 
   public render() {
+    const particles = [
+      {
+        type: 'square',
+        amount: 3,
+        dist: {
+          min: 140,
+          max: 160,
+        },
+      },
+      {
+        type: 'triangle',
+        amount: 3,
+        dist: {
+          min: 170,
+          max: 190,
+        },
+      },
+      {
+        type: 'circle',
+        amount: 9,
+        dist: {
+          min: 150,
+          max: 200,
+        },
+      },
+      {
+        type: 'ring',
+        amount: 5,
+        dist: {
+          min: 150,
+          max: 170,
+        },
+      },
+    ];
+
+    let particleId = 0;
+
     return (
       <Container pose={this.props.user.isMatching ? 'visible' : 'hidden'}>
         <MatchingResult>
@@ -36,6 +74,16 @@ export default class Matching extends React.Component<IMatching> {
             </PartnerImageList>
           </ImageGroup>
           <Text>おめでとうございます！<br/> 1人とマッチングしました！</Text>
+          <ParticleOuter>
+            {particles.map((particle, index) => {
+              const particles = [];
+              for (let i = 0; i < particle.amount; i++) {
+                particles.push(<Particle type={particle.type} amount={particle.amount} index={index} i={i} dist={particle.dist} key={particleId} />);
+                particleId++;
+              }
+              return particles;
+            })}
+          </ParticleOuter>
         </MatchingResult>
         <ButtonGroup>
           <MessageButton>メッセージする</MessageButton>
