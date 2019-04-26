@@ -7,25 +7,33 @@ import {
 import Detail from '../detail';
 
 interface IFind {
-  user: any;
+  userIndex: number;
+  users: any;
   updateState: (state: any) => void;
 };
 
 export default class Find extends React.Component<IFind> {
   changeImage(index: number): void {
-    let state: any = this.props;
-    state.user.thumbnails[state.user.prevIndex].isActive = false;
-    state.user.thumbnails[index].isActive = true;
-    state.user.mainImage = state.user.thumbnails[index].image;
-    state.user.prevIndex = index;
+    let state: any = this.props,
+        user: any = state.users[state.userIndex];
 
+    user.thumbnails[user.prevIndex].isActive = false;
+    user.thumbnails[index].isActive = true;
+    user.mainImage = user.thumbnails[index].image;
+    user.prevIndex = index;
+
+    state.users[state.userIndex] = user;
     this.props.updateState(state);
   }
 
   render() {
     return (
       <React.Fragment>
-        <Detail user={this.props.user} updateState={this.props.updateState.bind(this)} />
+        <Detail
+          userIndex={this.props.userIndex}
+          users={this.props.users}
+          updateState={this.props.updateState.bind(this)}
+        />
         <Container>
           <Header>
             <HeaderArrow />
@@ -38,24 +46,24 @@ export default class Find extends React.Component<IFind> {
           <Card
             onClick={() => {
               let state = this.props;
-              state.user.isDetail = true;
+              state.users[state.userIndex].isDetail = true;
               this.props.updateState(state);
             }}
-            pose={this.props.user.isUnLike ? 'unLike' : 'default'}
+            pose={this.props.users[this.props.userIndex].isUnLike ? 'unLike' : 'default'}
           >
             <CardUnLikeInner>
               <UnLikeIcon />
               <UnLikeText>イマイチ<span>...</span></UnLikeText>
             </CardUnLikeInner>
             <New />
-            <Image src={this.props.user.mainImage} alt="プロフィール画像"/>
+            <Image src={this.props.users[this.props.userIndex].mainImage} alt="プロフィール画像"/>
             <Inner>
               <Profile>
-                <Title>{this.props.user.name}</Title>
-                <Text>{this.props.user.age}歳・{this.props.user.place}</Text>
+                <Title>{this.props.users[this.props.userIndex].name}</Title>
+                <Text>{this.props.users[this.props.userIndex].age}歳・{this.props.users[this.props.userIndex].place}</Text>
               </Profile>
               <ThumbnailList>
-                {this.props.user.thumbnails.map((thumbnail: any, index: number) => {
+                {this.props.users[this.props.userIndex].thumbnails.map((thumbnail: any, index: number) => {
                   return (
                     <Thumbnail
                       key={index}
@@ -71,7 +79,7 @@ export default class Find extends React.Component<IFind> {
                 })}
               </ThumbnailList>
             </Inner>
-            <Apeal>{this.props.user.appealText}</Apeal>
+            <Apeal>{this.props.users[this.props.userIndex].appeal}</Apeal>
           </Card>
           <ButtonGroup>
             <Setting />
@@ -80,7 +88,7 @@ export default class Find extends React.Component<IFind> {
             <UnLike
               onClick={() => {
                 let state = this.props;
-                state.user.isUnLike = true;
+                state.users[state.userIndex].isUnLike = true;
                 this.props.updateState(state);
               }}
             />

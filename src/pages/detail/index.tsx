@@ -7,46 +7,50 @@ import {
 } from './style';
 
 interface IDetail {
-  user: any;
+  userIndex: number;
+  users: any;
   updateState: (state: any) => void;
 };
 
 export default class Detail extends React.Component<IDetail> {
   changeImage(index: number): void {
-    let state: any = this.props;
-    state.user.thumbnails[state.user.prevIndex].isActive = false;
-    state.user.thumbnails[index].isActive = true;
-    state.user.mainImage = state.user.thumbnails[index].image;
-    state.user.prevIndex = index;
+    let state: any = this.props,
+        user: any = state.users[state.userIndex];
 
+    user.thumbnails[user.prevIndex].isActive = false;
+    user.thumbnails[index].isActive = true;
+    user.mainImage = user.thumbnails[index].image;
+    user.prevIndex = index;
+
+    state.users[state.userIndex] = user;
     this.props.updateState(state);
   }
 
   public render() {
     return (
-      <Container pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
-        <Header pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
+      <Container pose={this.props.users[this.props.userIndex].isDetail ? 'visible' : 'hidden'}>
+        <Header pose={this.props.users[this.props.userIndex].isDetail ? 'visible' : 'hidden'}>
           <CloseButton onClick={() => {
             let state = this.props;
-            state.user.isDetail = false;
+            state.users[this.props.userIndex].isDetail = false;
             this.props.updateState(state);
           }} />
           <OptionButton />
         </Header>
-        <Image pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
-          <img src={this.props.user.mainImage} alt="プロフィール画像"/>
+        <Image pose={this.props.users[this.props.userIndex].isDetail ? 'visible' : 'hidden'}>
+          <img src={this.props.users[this.props.userIndex].mainImage} alt="プロフィール画像"/>
         </Image>
-        <Profile pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
+        <Profile pose={this.props.users[this.props.userIndex].isDetail ? 'visible' : 'hidden'}>
           <ProfileMain>
             <MainTextGroup>
-              <MainTitle>{this.props.user.name}<New /></MainTitle>
+              <MainTitle>{this.props.users[this.props.userIndex].name}<New /></MainTitle>
               <Text>
-                {this.props.user.age}歳・{this.props.user.place}
-                <Confirmation isConfirmed={this.props.user.isConfirmed}>年確済み</Confirmation>
+                {this.props.users[this.props.userIndex].age}歳・{this.props.users[this.props.userIndex].place}
+                <Confirmation isConfirmed={this.props.users[this.props.userIndex].isConfirmed}>年確済み</Confirmation>
               </Text>
             </MainTextGroup>
             <ThumbnailList>
-              { this.props.user.thumbnails.map((thumbnail: any, index: number) => {
+              { this.props.users[this.props.userIndex].thumbnails.map((thumbnail: any, index: number) => {
                 return (
                   <Thumbnail
                     key={index}
@@ -64,33 +68,33 @@ export default class Detail extends React.Component<IDetail> {
           </ProfileMain>
           <Introduction>
             <IntroductionTitle>自己紹介</IntroductionTitle>
-            <IntroductionText>{this.props.user.introduction}</IntroductionText>
+            <IntroductionText>{this.props.users[this.props.userIndex].introduction}</IntroductionText>
           </Introduction>
           <CategoryGroup>
             <Title>興味があるカテゴリー</Title>
             <CategoryList>
               <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
+                <CategoryImage src={this.props.users[this.props.userIndex].mainImage} alt="アウトドアが好き" />
                 <CategoryText>アウトドア好き</CategoryText>
               </CategoryCard>
               <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
+                <CategoryImage src={this.props.users[this.props.userIndex].mainImage} alt="アウトドアが好き" />
                 <CategoryText>旅行好き</CategoryText>
               </CategoryCard>
               <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
+                <CategoryImage src={this.props.users[this.props.userIndex].mainImage} alt="アウトドアが好き" />
                 <CategoryText>アウトドア好き</CategoryText>
               </CategoryCard>
               <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
+                <CategoryImage src={this.props.users[this.props.userIndex].mainImage} alt="アウトドアが好き" />
                 <CategoryText>旅行好き</CategoryText>
               </CategoryCard>
               <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
+                <CategoryImage src={this.props.users[this.props.userIndex].mainImage} alt="アウトドアが好き" />
                 <CategoryText>アウトドア好き</CategoryText>
               </CategoryCard>
               <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
+                <CategoryImage src={this.props.users[this.props.userIndex].mainImage} alt="アウトドアが好き" />
                 <CategoryText>旅行好き</CategoryText>
               </CategoryCard>
             </CategoryList>
