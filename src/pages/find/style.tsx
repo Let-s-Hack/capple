@@ -30,6 +30,7 @@ const displayNone = keyframes`
 
 interface IContainer {
   mobileHeight: number;
+  isMatching: boolean;
 };
 
 export const Container = styled.div`
@@ -41,6 +42,8 @@ export const Container = styled.div`
   min-height: ${(props: IContainer) => props.mobileHeight}px;
   z-index: 10;
   overflow: hidden;
+  transition: all 0.3s ease;
+  filter: ${(props: IContainer) => props.isMatching ? 'blur(12px)' : 'none'};
 
   &::before {
     content: '';
@@ -101,7 +104,17 @@ export const ButtonGroup = styled.div`
   height: 100px;
 `;
 
-export const Like = styled.div`
+const PoseButton = posed.div({
+  pressable: true,
+  init: {
+    scale: 1,
+  },
+  press: {
+    scale: 1.1,
+  },
+});
+
+export const Like = styled(PoseButton)`
   width: 69px;
   height: 69px;
   border-radius: 50%;
@@ -118,7 +131,7 @@ export const SuperLike = styled.div`
   background: url(${iconSuperLike}) 1px 12px / 100% 27px no-repeat;
 `;
 
-export const UnLike = styled.div`
+export const UnLike = styled(PoseButton)`
   width: 69px;
   height: 69px;
   border-radius: 50%;

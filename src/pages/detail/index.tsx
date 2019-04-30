@@ -26,7 +26,7 @@ export default class Detail extends React.Component<IDetail> {
   public render() {
     return (
       <Container pose={this.props.user.isDetail ? 'visible' : 'hidden'} mobileHeight={this.props.style.mobileHeight}>
-        <Header pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
+        <Header>
           <CloseButton onClick={() => {
             let state = this.props;
             state.user.isDetail = false;
@@ -37,7 +37,7 @@ export default class Detail extends React.Component<IDetail> {
         <Image mobileHeight={this.props.style.mobileHeight}>
           <img src={this.props.user.mainImage} alt="プロフィール画像"/>
         </Image>
-        <Profile pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
+        <Profile>
           <ProfileMain>
             <MainTextGroup>
               <MainTitle>{this.props.user.name}<New /></MainTitle>

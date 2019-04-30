@@ -5,6 +5,7 @@ import {
   Apeal, ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
 } from './style';
 import Detail from '../detail';
+import Matching from '../../components/matching';
 
 interface IFind {
   user: any;
@@ -26,8 +27,9 @@ export default class Find extends React.Component<IFind> {
   render() {
     return (
       <React.Fragment>
+        <Matching user={this.props.user} updateState={this.props.updateState.bind(this)} />
         <Detail user={this.props.user} style={this.props.style} updateState={this.props.updateState.bind(this)} />
-        <Container mobileHeight={this.props.style.mobileHeight}>
+        <Container isMatching={this.props.user.isMatching} mobileHeight={this.props.style.mobileHeight}>
           <Header>
             <HeaderArrow />
             <HeaderTitle>アウトドアが好き</HeaderTitle>
@@ -76,7 +78,11 @@ export default class Find extends React.Component<IFind> {
           </Card>
           <ButtonGroup>
             <Setting />
-            <Like />
+            <Like onClick={() => {
+              let state = this.props;
+              state.user.isMatching = true;
+              this.props.updateState(state);
+            }}/>
             <SuperLike />
             <UnLike
               onClick={() => {
