@@ -243,9 +243,11 @@ const getCoordinateRotation = (props: IParticle, dist: number = 160, axis: strin
   // 角度
   const angle = 360 / props.amount * props.i + props.index * 30;
 
-  if (axis === 'x') return Math.floor(dist * Math.cos( angle * (Math.PI / 180) ));
+  // X軸の座標回転結果
+  if (axis === 'x') return Math.floor(dist * Math.cos(angle * (Math.PI / 180)));
 
-  return Math.floor(dist * Math.sin( angle * (Math.PI / 180) ));
+  // Y軸の座標回転結果
+  return Math.floor(dist * Math.sin(angle * (Math.PI / 180)));
 };
 
 export const Particle = styled(PoseParticle)`
@@ -265,7 +267,6 @@ const getParticleShape = (props: IParticle) => {
         width: 35px;
         height: 35px;
         border: 3px solid white;
-        margin-bottom: ${props.i};
       `;
     case 'triangle':
       return `
