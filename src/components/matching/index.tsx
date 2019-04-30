@@ -7,6 +7,7 @@ import {
 
 interface IMatching {
   user: any;
+  style: any;
   updateState: (state: any) => void;
 };
 
@@ -60,7 +61,7 @@ export default class Matching extends React.Component<IMatching> {
     let particleId = 0;
 
     return (
-      <Container pose={this.props.user.isMatching ? 'visible' : 'hidden'}>
+      <Container pose={this.props.user.isMatching ? 'visible' : 'hidden'} mobileHeight={this.props.style.mobileHeight}>
         <MatchingResult>
           <Title />
           <ImageGroup>
