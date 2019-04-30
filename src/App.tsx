@@ -30,6 +30,7 @@ class App extends React.Component {
       isConfirmed: true,
       introduction: <span>動物園に会いにきてください！待ってます。<br/>よろしくおねがいします！</span>,
       isDetail: false,
+      isMatching: false,
       isUnLike: false,
     }
   };
