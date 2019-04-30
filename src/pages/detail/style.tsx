@@ -19,7 +19,7 @@ const PoseContainer = posed.div({
     opacity: 1,
     background: 'rgba(255, 255, 255, 0)',
     transition: {
-      duration: 300,
+      duration: 600,
     },
     applyAtEnd: {
       display: 'none',
@@ -66,15 +66,27 @@ const PoseImage = posed.div({
       ease: [0.08, 0.69, 0.2, 0.99],
       duration: 300,
     },
+    applyAtStart: {
+      opacity: 1,
+    },
   },
   hidden: {
     y: 88,
     width: 'calc(100% - 32px)',
+    opacity: 0,
     minHeight: (props: IImage) => props.mobileHeight - 198 + 'px',
     borderRadius: 16,
     transition: {
-      ease: [0.08, 0.69, 0.2, 0.99],
-      duration: 300,
+      default: {
+        ease: [0.08, 0.69, 0.2, 0.99],
+        duration: 300,
+      },
+      opacity: ({ from, to }: any) => ({
+        type: 'keyframes',
+        values: [from, from, to],
+        times:  [0, 0.5, 1],
+        duration: 600,
+      }),
     },
   }
 });
