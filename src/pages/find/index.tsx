@@ -8,6 +8,7 @@ import Detail from '../detail';
 
 interface IFind {
   user: any;
+  style: any;
   updateState: (state: any) => void;
 };
 
@@ -25,8 +26,8 @@ export default class Find extends React.Component<IFind> {
   render() {
     return (
       <React.Fragment>
-        <Detail user={this.props.user} updateState={this.props.updateState.bind(this)} />
-        <Container>
+        <Detail user={this.props.user} style={this.props.style} updateState={this.props.updateState.bind(this)} />
+        <Container mobileHeight={this.props.style.mobileHeight}>
           <Header>
             <HeaderArrow />
             <HeaderTitle>アウトドアが好き</HeaderTitle>
