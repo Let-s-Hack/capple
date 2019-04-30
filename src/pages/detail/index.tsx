@@ -8,6 +8,7 @@ import {
 
 interface IDetail {
   user: any;
+  style: any;
   updateState: (state: any) => void;
 };
 
@@ -24,7 +25,7 @@ export default class Detail extends React.Component<IDetail> {
 
   public render() {
     return (
-      <Container pose={this.props.user.isDetail ? 'visible' : 'hidden'}>
+      <Container pose={this.props.user.isDetail ? 'visible' : 'hidden'} mobileHeight={this.props.style.mobileHeight}>
         <Header>
           <CloseButton onClick={() => {
             let state = this.props;
@@ -33,7 +34,7 @@ export default class Detail extends React.Component<IDetail> {
           }} />
           <OptionButton />
         </Header>
-        <Image>
+        <Image mobileHeight={this.props.style.mobileHeight}>
           <img src={this.props.user.mainImage} alt="プロフィール画像"/>
         </Image>
         <Profile>

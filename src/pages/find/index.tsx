@@ -9,6 +9,7 @@ import Matching from '../../components/matching';
 
 interface IFind {
   user: any;
+  style: any;
   updateState: (state: any) => void;
 };
 
@@ -27,8 +28,8 @@ export default class Find extends React.Component<IFind> {
     return (
       <React.Fragment>
         <Matching user={this.props.user} updateState={this.props.updateState.bind(this)} />
-        <Detail user={this.props.user} updateState={this.props.updateState.bind(this)} />
-        <Container isMatching={this.props.user.isMatching}>
+        <Detail user={this.props.user} style={this.props.style} updateState={this.props.updateState.bind(this)} />
+        <Container isMatching={this.props.user.isMatching} mobileHeight={this.props.style.mobileHeight}>
           <Header>
             <HeaderArrow />
             <HeaderTitle>アウトドアが好き</HeaderTitle>

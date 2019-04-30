@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Opening from './pages/opening';
 import Find from './pages/find';
-import Detail from './pages/detail';
 
 import userImage01 from 'images/users/user-image05.jpg';
 import userImage02 from 'images/users/user-image01.jpg';
@@ -32,17 +31,29 @@ class App extends React.Component {
       isDetail: false,
       isMatching: false,
       isUnLike: false,
+    },
+    style: {
+      mobileHeight: window.innerHeight
     }
   };
 
   public render() {
+    // ステータスバーを除外した高さをリサイズのたびに計算
+    let timeoutId: any;
+    window.addEventListener('resize', () => {
+        clearTimeout(timeoutId);
+
+        timeoutId = setTimeout(() => {
+          this.updateState({ style: { mobileHeight: window.innerHeight } });
+        }, 500);
+    });
+
     return (
         <BrowserRouter>
           <Switch>
             {/* exact は完全マッチ時のみ表示させる。条件が厳しくなる。 */}
             <Route exact path="/" component={Opening} />
-            <Route exact path="/find" render={() => <Find user={this.state.user} updateState={this.updateState.bind(this)}/>} />
-            <Route exact path="/detail" render={() => <Detail user={this.state.user} updateState={this.updateState.bind(this)}/>} />
+            <Route exact path="/find" render={() => <Find user={this.state.user} style={this.state.style} updateState={this.updateState.bind(this)}/>} />
           </Switch>
         </BrowserRouter>
     );

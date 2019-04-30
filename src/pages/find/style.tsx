@@ -29,6 +29,7 @@ const displayNone = keyframes`
 `;
 
 interface IContainer {
+  mobileHeight: number;
   isMatching: boolean;
 };
 
@@ -38,7 +39,7 @@ export const Container = styled.div`
   left: 0;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: ${(props: IContainer) => props.mobileHeight}px;
   z-index: 10;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -50,7 +51,7 @@ export const Container = styled.div`
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: ${(props: IContainer) => props.mobileHeight}px;
     z-index: 1000;
     background: white;
     animation: ${fadeIn} 0.8s forwards, ${displayNone} 0s 0.8s forwards;
