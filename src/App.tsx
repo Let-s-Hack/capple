@@ -9,10 +9,6 @@ import userImage02 from 'images/users/user-image01.jpg';
 import userImage03 from 'images/users/user-image02.jpg';
 
 class App extends React.Component {
-  updateState(state: any): void {
-    this.setState(state);
-  }
-
   public state: any = {
     userIndex: 0,
     users: [
@@ -66,9 +62,19 @@ class App extends React.Component {
         isConfirmed: true,
         isDetail: false,
         isUnLike: false,
-      }
+      },
     ]
   };
+
+  private updateState(state: any): void {
+    this.setState(state);
+  }
+
+  private nextUser(): void {
+    let state = this.state;
+    state.userIndex++;
+    this.updateState(state);
+  }
 
   public render() {
     return (
@@ -81,6 +87,7 @@ class App extends React.Component {
                 userIndex={this.state.userIndex}
                 users={this.state.users}
                 updateState={this.updateState.bind(this)}
+                nextUser={this.nextUser.bind(this)}
                 />
               } />
           </Switch>

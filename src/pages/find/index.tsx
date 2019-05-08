@@ -10,10 +10,15 @@ interface IFind {
   userIndex: number;
   users: any;
   updateState: (state: any) => void;
+  nextUser: () => void;
 };
 
 export default class Find extends React.Component<IFind> {
-  changeImage(index: number): void {
+  public state: any = {
+    currentUserIndex: this.props.userIndex
+  }
+
+  private changeImage(index: number): void {
     let state: any = this.props,
         user: any = state.users[state.userIndex];
 
@@ -26,7 +31,19 @@ export default class Find extends React.Component<IFind> {
     this.props.updateState(state);
   }
 
-  render() {
+  private showDetail(): void {
+    let state = this.props;
+    state.users[state.userIndex].isDetail = true;
+    this.props.updateState(state);
+  }
+
+  private animateUnlike(): void {
+    let state = this.props;
+    state.users[state.userIndex].isUnLike = true;
+    this.props.updateState(state);
+  }
+
+  public render() {
     return (
       <React.Fragment>
         <Detail
@@ -44,12 +61,9 @@ export default class Find extends React.Component<IFind> {
             </HeaderCard>
           </Header>
           <Card
-            onClick={() => {
-              let state = this.props;
-              state.users[state.userIndex].isDetail = true;
-              this.props.updateState(state);
-            }}
-            pose={this.props.users[this.props.userIndex].isUnLike ? 'unLike' : 'default'}
+            onClick={this.showDetail.bind(this)}
+            pose={this.props.users[this.state.currentUserIndex].isUnLike ? 'unLike' : 'default'}
+            onPoseComplete={this.props.nextUser.bind(this)}
           >
             <CardUnLikeInner>
               <UnLikeIcon />
@@ -85,13 +99,7 @@ export default class Find extends React.Component<IFind> {
             <Setting />
             <Like />
             <SuperLike />
-            <UnLike
-              onClick={() => {
-                let state = this.props;
-                state.users[state.userIndex].isUnLike = true;
-                this.props.updateState(state);
-              }}
-            />
+            <UnLike onClick={this.animateUnlike.bind(this)} />
             <Shop />
           </ButtonGroup>
         </Container>

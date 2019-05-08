@@ -13,7 +13,7 @@ interface IDetail {
 };
 
 export default class Detail extends React.Component<IDetail> {
-  changeImage(index: number): void {
+  private changeImage(index: number): void {
     let state: any = this.props,
         user: any = state.users[state.userIndex];
 
@@ -26,15 +26,17 @@ export default class Detail extends React.Component<IDetail> {
     this.props.updateState(state);
   }
 
+  private hideDetail(): void {
+    let state = this.props;
+    state.users[this.props.userIndex].isDetail = false;
+    this.props.updateState(state);
+  }
+
   public render() {
     return (
       <Container pose={this.props.users[this.props.userIndex].isDetail ? 'visible' : 'hidden'}>
         <Header pose={this.props.users[this.props.userIndex].isDetail ? 'visible' : 'hidden'}>
-          <CloseButton onClick={() => {
-            let state = this.props;
-            state.users[this.props.userIndex].isDetail = false;
-            this.props.updateState(state);
-          }} />
+          <CloseButton onClick={this.hideDetail.bind(this)} />
           <OptionButton />
         </Header>
         <Image pose={this.props.users[this.props.userIndex].isDetail ? 'visible' : 'hidden'}>
