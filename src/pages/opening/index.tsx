@@ -7,15 +7,11 @@ import { Redirect } from 'react-router-dom';
 interface Props {};
 
 interface State {
-  isStopped: boolean;
-  isPaused: boolean;
   redirect: boolean;
 }
 
 class Opening extends React.Component<Props, State> {
   public state: State = {
-    isStopped: false,
-    isPaused: false,
     redirect: false
   };
 
@@ -54,8 +50,6 @@ class Opening extends React.Component<Props, State> {
         <OpeningContainer>
           <Lottie
             options={defaultOptions}
-            isStopped={this.state.isStopped}
-            isPaused={this.state.isPaused}
             eventListeners={callbackOptions}
           />
         </OpeningContainer>
