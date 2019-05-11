@@ -5,6 +5,7 @@ import {
 } from './style';
 
 interface ICard {
+  isShowing: boolean;
   user: any;
   pose: string;
   updateState: (state: any) => void;
@@ -40,7 +41,7 @@ export default class Card extends React.Component<ICard> {
           <UnLikeIcon />
           <UnLikeText>イマイチ<span>...</span></UnLikeText>
         </CardUnLikeInner>
-        <New />
+        { (this.props.user.isNew && this.props.isShowing === true) && <New />}
         <Image src={this.props.user.mainImage} alt="プロフィール画像" />
         <Inner>
           <Profile>

@@ -44,7 +44,10 @@ export default class Detail extends React.Component<IDetail> {
         <Profile>
           <ProfileMain>
             <MainTextGroup>
-              <MainTitle>{this.props.user.name}<New /></MainTitle>
+              <MainTitle>
+                {this.props.user.name}
+                { this.props.user.isNew && <New />}
+              </MainTitle>
               <Text>
                 {this.props.user.age}歳・{this.props.user.place}
                 <Confirmation isConfirmed={this.props.user.isConfirmed}>年確済み</Confirmation>

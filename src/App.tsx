@@ -25,9 +25,11 @@ class App extends React.Component {
           { image: userImage02, isActive: false },
           { image: userImage03, isActive: false }
         ],
+        isNew: true,
         isConfirmed: true,
         isDetail: false,
         isUnLike: false,
+        isMatching: false,
       },
       {
         name: "ゴリラ",
@@ -42,9 +44,11 @@ class App extends React.Component {
           { image: userImage01, isActive: false },
           { image: userImage03, isActive: false }
         ],
+        isNew: false,
         isConfirmed: true,
         isDetail: false,
         isUnLike: false,
+        isMatching: false,
       },
       {
         name: "可愛い子",
@@ -59,9 +63,11 @@ class App extends React.Component {
           { image: userImage02, isActive: false },
           { image: userImage01, isActive: false }
         ],
+        isNew: true,
         isConfirmed: true,
         isDetail: false,
         isUnLike: false,
+        isMatching: false,
       },
     ],
     style: {
@@ -71,6 +77,27 @@ class App extends React.Component {
 
   private updateState(state: any): void {
     this.setState(state);
+  }
+
+  private showNextUser(): void {
+    let state = this.state;
+
+    // 最後までいったら、初期化
+    if (state.userIndex >= state.users.length - 1) {
+      this.init();
+    } else {
+      state.userIndex++;
+      this.updateState(state);
+    }
+  }
+
+  private init(): void {
+    let state = this.state;
+
+    state.userIndex = 0;
+    state = state.users.map((user: any) => { return user.isUnLike = false; });
+
+    this.updateState(state);
   }
 
   public render() {
@@ -95,6 +122,7 @@ class App extends React.Component {
                 users={this.state.users}
                 style={this.state.style}
                 updateState={this.updateState.bind(this)}
+                showNextUser={this.showNextUser.bind(this)}
               />
             } />
           </Switch>

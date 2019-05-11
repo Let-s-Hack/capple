@@ -20,12 +20,13 @@ const PoseContainer = posed.div({
 });
 
 export const Container = styled(PoseContainer)`
-  position: relative;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  margin: 32px 16px 10px 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
   background: white;
