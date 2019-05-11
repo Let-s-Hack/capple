@@ -63,20 +63,27 @@ class App extends React.Component {
         isDetail: false,
         isUnLike: false,
       },
-    ]
+    ],
+    style: {
+      mobileHeight: window.innerHeight
+    }
   };
 
   private updateState(state: any): void {
     this.setState(state);
   }
 
-  private nextUser(): void {
-    let state = this.state;
-    state.userIndex++;
-    this.updateState(state);
-  }
-
   public render() {
+    // ステータスバーを除外した高さをリサイズのたびに計算
+    let timeoutId: any;
+    window.addEventListener('resize', () => {
+        clearTimeout(timeoutId);
+
+        timeoutId = setTimeout(() => {
+          this.updateState({ style: { mobileHeight: window.innerHeight } });
+        }, 500);
+    });
+
     return (
         <BrowserRouter>
           <Switch>
@@ -86,10 +93,10 @@ class App extends React.Component {
               <Find
                 userIndex={this.state.userIndex}
                 users={this.state.users}
+                style={this.state.style}
                 updateState={this.updateState.bind(this)}
-                nextUser={this.nextUser.bind(this)}
-                />
-              } />
+              />
+            } />
           </Switch>
         </BrowserRouter>
     );

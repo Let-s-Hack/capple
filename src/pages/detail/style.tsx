@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
-import iconClose from 'images/icons/close_.svg';
+import iconClose from 'images/icons/close.svg';
 import iconConfirmation from 'images/icons/confirmation.svg';
 import iconOption from 'images/icons/option.svg';
 import iconNew from 'images/icons/new.svg';
@@ -19,13 +19,17 @@ const PoseContainer = posed.div({
     opacity: 1,
     background: 'rgba(255, 255, 255, 0)',
     transition: {
-      duration: 300,
+      duration: 600,
     },
     applyAtEnd: {
       display: 'none',
     },
   },
 });
+
+interface IContainer {
+  mobileHeight: number;
+};
 
 export const Container = styled(PoseContainer)`
 position: absolute;
@@ -34,7 +38,7 @@ left: 0;
 display: flex;
 flex-direction: column;
 width: 100vw;
-height: 100vh;
+min-height: ${(props: IContainer) => props.mobileHeight}px;
 z-index: 1000;
 
 &::before {
@@ -43,30 +47,46 @@ z-index: 1000;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  min-height: ${(props: IContainer) => props.mobileHeight}px;
 }
 `;
+
+interface IImage {
+  mobileHeight: number;
+};
 
 const PoseImage = posed.div({
   visible: {
     y: 0,
     // 一見無駄な書き方に見えるが、アニメーション前後で同じ形式じゃないといけない
     width: 'calc(100% - 0px)',
-    minHeight: 'calc((0vh - 0px) + 360px)',
+    minHeight: '0px',
     borderRadius: 0,
     transition: {
       ease: [0.08, 0.69, 0.2, 0.99],
       duration: 300,
     },
+    applyAtStart: {
+      opacity: 1,
+    },
   },
   hidden: {
     y: 88,
     width: 'calc(100% - 32px)',
-    minHeight: 'calc((100vh - 198px) + 0px)',
+    opacity: 0,
+    minHeight: (props: IImage) => props.mobileHeight - 198 + 'px',
     borderRadius: 16,
     transition: {
-      ease: [0.08, 0.69, 0.2, 0.99],
-      duration: 300,
+      default: {
+        ease: [0.08, 0.69, 0.2, 0.99],
+        duration: 300,
+      },
+      opacity: ({ from, to }: any) => ({
+        type: 'keyframes',
+        values: [from, from, to],
+        times:  [0, 0.5, 1],
+        duration: 600,
+      }),
     },
   }
 });
