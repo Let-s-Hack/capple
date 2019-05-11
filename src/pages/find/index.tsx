@@ -32,7 +32,7 @@ export default class Find extends React.Component<IFind> {
       cards.push(
           <Card
             key={i}
-            isShowing={this.props.userIndex === i}
+            isCurrent={this.props.userIndex === i}
             user={this.props.users[i]}
             updateState={this.props.updateState}
             pose={this.props.users[i].isUnLike ? 'unLike' : 'default'}

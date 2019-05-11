@@ -66,7 +66,7 @@ export default class Detail extends React.Component<IDetail> {
                     }
                     isActive={thumbnail.isActive}><img src={thumbnail.image} />
                   </Thumbnail>
-                )
+                );
               }) }
             </ThumbnailList>
           </ProfileMain>
@@ -77,48 +77,28 @@ export default class Detail extends React.Component<IDetail> {
           <CategoryGroup>
             <Title>興味があるカテゴリー</Title>
             <CategoryList>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>アウトドア好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>旅行好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>アウトドア好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>旅行好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>アウトドア好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>旅行好き</CategoryText>
-              </CategoryCard>
+              { this.props.user.category.map((item: any, index: number) => {
+                return (
+                  <CategoryCard key={index}>
+                    <CategoryImage src={item.image} alt={item.text} />
+                    <CategoryText>{item.text}</CategoryText>
+                  </CategoryCard>
+                );
+              }) }
             </CategoryList>
           </CategoryGroup>
           <ProfileDetailGroup>
             <Title>プロフィール</Title>
-            <ProfileDetailList>
-              <ProfileDetail>
-                <ProfileDetailTitle>出身地</ProfileDetailTitle>
-                <ProfileDetailText>神奈川県</ProfileDetailText>
-              </ProfileDetail>
-              <ProfileDetail>
-                <ProfileDetailTitle>血液型</ProfileDetailTitle>
-                <ProfileDetailText>A</ProfileDetailText>
-              </ProfileDetail>
-              <ProfileDetail>
-                <ProfileDetailTitle>体型</ProfileDetailTitle>
-                <ProfileDetailText>筋肉質</ProfileDetailText>
-              </ProfileDetail>
-            </ProfileDetailList>
+              <ProfileDetailList>
+                { this.props.user.profile.map((item: any, index: number) => {
+                  return (
+                    <ProfileDetail key={index}>
+                      <ProfileDetailTitle>{item.title}</ProfileDetailTitle>
+                      <ProfileDetailText>{item.text}</ProfileDetailText>
+                    </ProfileDetail>
+                  );
+                }) }
+              </ProfileDetailList>
           </ProfileDetailGroup>
         </Profile>
       </Container>
