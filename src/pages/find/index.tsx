@@ -1,35 +1,57 @@
 import * as React from 'react';
 import {
-  Container, CardUnLikeInner, UnLikeIcon, UnLikeText, Header, HeaderArrow, HeaderTitle, HeaderCard,
-  Card, New, Image, Inner, Profile, Title, Text, Thumbnail, ThumbnailList,
-  Apeal, ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
+  Container, Header, HeaderArrow, HeaderTitle, HeaderCard,
+  CardGroup, ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
 } from './style';
 import Detail from '../detail';
+import Card from '../../components/card';
 import Matching from '../../components/matching';
 
 interface IFind {
-  user: any;
+  userIndex: number;
+  users: any;
   style: any;
   updateState: (state: any) => void;
+  showNextUser: () => void;
 };
 
 export default class Find extends React.Component<IFind> {
-  changeImage(index: number): void {
-    let state: any = this.props;
-    state.user.thumbnails[state.user.prevIndex].isActive = false;
-    state.user.thumbnails[index].isActive = true;
-    state.user.mainImage = state.user.thumbnails[index].image;
-    state.user.prevIndex = index;
-
+  private execAction(actionKey: string): void {
+    let state = this.props;
+    state.users[state.userIndex][actionKey] = true;
     this.props.updateState(state);
   }
 
-  render() {
+  private createCardDOM(): any {
+    let cards = [];
+    for(let i = this.props.userIndex; i <= this.props.userIndex + 1; i++) {
+      if (i >= this.props.users.length) {
+        break;
+      }
+
+      cards.push(
+          <Card
+            key={i}
+            isCurrent={this.props.userIndex === i}
+            user={this.props.users[i]}
+            updateState={this.props.updateState}
+            pose={this.props.users[i].isUnLike ? 'unLike' : 'default'}
+            onPoseComplete={() => this.props.showNextUser()}
+          />
+      )
+    }
+
+    return cards.reverse();
+  }
+
+  public render() {
+    let currentUser = this.props.users[this.props.userIndex];
+
     return (
       <React.Fragment>
-        <Matching user={this.props.user} style={this.props.style} updateState={this.props.updateState.bind(this)} />
-        <Detail user={this.props.user} style={this.props.style} updateState={this.props.updateState.bind(this)} />
-        <Container isMatching={this.props.user.isMatching} mobileHeight={this.props.style.mobileHeight}>
+        <Matching user={currentUser} style={this.props.style} updateState={this.props.updateState} />
+        <Detail userIndex={this.props.userIndex} user={currentUser} style={this.props.style} updateState={this.props.updateState} />
+        <Container isMatching={currentUser.isMatching} mobileHeight={this.props.style.mobileHeight}>
           <Header>
             <HeaderArrow />
             <HeaderTitle>アウトドアが好き</HeaderTitle>
@@ -38,59 +60,12 @@ export default class Find extends React.Component<IFind> {
               <p>255</p>
             </HeaderCard>
           </Header>
-          <Card
-            onClick={() => {
-              let state = this.props;
-              state.user.isDetail = true;
-              this.props.updateState(state);
-            }}
-            pose={this.props.user.isUnLike ? 'unLike' : 'default'}
-          >
-            <CardUnLikeInner>
-              <UnLikeIcon />
-              <UnLikeText>イマイチ<span>...</span></UnLikeText>
-            </CardUnLikeInner>
-            <New />
-            <Image src={this.props.user.mainImage} alt="プロフィール画像"/>
-            <Inner>
-              <Profile>
-                <Title>{this.props.user.name}</Title>
-                <Text>{this.props.user.age}歳・{this.props.user.place}</Text>
-              </Profile>
-              <ThumbnailList>
-                {this.props.user.thumbnails.map((thumbnail: any, index: number) => {
-                  return (
-                    <Thumbnail
-                      key={index}
-                      onClick={
-                        e => {
-                            e.stopPropagation();
-                            this.changeImage(index);
-                        }
-                      }
-                      isActive={thumbnail.isActive}><img src={thumbnail.image} />
-                    </Thumbnail>
-                  )
-                })}
-              </ThumbnailList>
-            </Inner>
-            <Apeal>{this.props.user.appealText}</Apeal>
-          </Card>
+          <CardGroup>{this.createCardDOM()}</CardGroup>
           <ButtonGroup>
             <Setting />
-            <Like onClick={() => {
-              let state = this.props;
-              state.user.isMatching = true;
-              this.props.updateState(state);
-            }}/>
+            <Like onClick={() => this.execAction('isMatching')} />
             <SuperLike />
-            <UnLike
-              onClick={() => {
-                let state = this.props;
-                state.user.isUnLike = true;
-                this.props.updateState(state);
-              }}
-            />
+            <UnLike onClick={() => this.execAction('isUnLike')} />
             <Shop />
           </ButtonGroup>
         </Container>

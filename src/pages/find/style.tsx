@@ -37,6 +37,7 @@ export const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   min-height: ${(props: IContainer) => props.mobileHeight}px;
@@ -153,41 +154,13 @@ export const Shop = styled.div`
   background: url(${iconShop}) center / 100% 25px no-repeat;
 `;
 
-const PoseCard = posed.div({
-  unLike: {
-    left: '100vw',
-    transform: 'rotate(2deg)',
-    transition: {
-      duration: 150,
-      delay: 100,
-    }
-  },
-  default: {
-    left: '0vw',
-    transform: 'rotate(0deg)',
-  }
-});
-
-export const Card = styled(PoseCard)`
+export const CardGroup = styled.div`
   position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   margin: 32px 16px 10px 16px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 16px;
-  background: white;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 160px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.57));
-    border-radius: 0 0 16px 16px;
-  }
 `;
 
 const PoseCardUnLikeInner = posed.div({

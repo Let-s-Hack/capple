@@ -7,19 +7,27 @@ import {
 } from './style';
 
 interface IDetail {
+  userIndex: number;
   user: any;
   style: any;
   updateState: (state: any) => void;
 };
 
 export default class Detail extends React.Component<IDetail> {
-  changeImage(index: number): void {
-    let state: any = this.props;
-    state.user.thumbnails[state.user.prevIndex].isActive = false;
-    state.user.thumbnails[index].isActive = true;
-    state.user.mainImage = state.user.thumbnails[index].image;
-    state.user.prevIndex = index;
+  private changeImage(index: number): void {
+    let user: any = this.props.user;
 
+    user.thumbnails[user.prevIndex].isActive = false;
+    user.thumbnails[index].isActive = true;
+    user.mainImage = user.thumbnails[index].image;
+    user.prevIndex = index;
+
+    this.props.updateState(user);
+  }
+
+  private hideDetail(): void {
+    let state = this.props;
+    state.user.isDetail = false;
     this.props.updateState(state);
   }
 
@@ -27,11 +35,7 @@ export default class Detail extends React.Component<IDetail> {
     return (
       <Container pose={this.props.user.isDetail ? 'visible' : 'hidden'} mobileHeight={this.props.style.mobileHeight}>
         <Header>
-          <CloseButton onClick={() => {
-            let state = this.props;
-            state.user.isDetail = false;
-            this.props.updateState(state);
-          }} />
+          <CloseButton onClick={() => this.hideDetail()} />
           <OptionButton />
         </Header>
         <Image mobileHeight={this.props.style.mobileHeight}>
@@ -40,7 +44,10 @@ export default class Detail extends React.Component<IDetail> {
         <Profile>
           <ProfileMain>
             <MainTextGroup>
-              <MainTitle>{this.props.user.name}<New /></MainTitle>
+              <MainTitle>
+                {this.props.user.name}
+                { this.props.user.isNew && <New />}
+              </MainTitle>
               <Text>
                 {this.props.user.age}歳・{this.props.user.place}
                 <Confirmation isConfirmed={this.props.user.isConfirmed}>年確済み</Confirmation>
@@ -59,7 +66,7 @@ export default class Detail extends React.Component<IDetail> {
                     }
                     isActive={thumbnail.isActive}><img src={thumbnail.image} />
                   </Thumbnail>
-                )
+                );
               }) }
             </ThumbnailList>
           </ProfileMain>
@@ -70,48 +77,28 @@ export default class Detail extends React.Component<IDetail> {
           <CategoryGroup>
             <Title>興味があるカテゴリー</Title>
             <CategoryList>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>アウトドア好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>旅行好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>アウトドア好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>旅行好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>アウトドア好き</CategoryText>
-              </CategoryCard>
-              <CategoryCard>
-                <CategoryImage src={this.props.user.mainImage} alt="アウトドアが好き" />
-                <CategoryText>旅行好き</CategoryText>
-              </CategoryCard>
+              { this.props.user.category.map((item: any, index: number) => {
+                return (
+                  <CategoryCard key={index}>
+                    <CategoryImage src={item.image} alt={item.text} />
+                    <CategoryText>{item.text}</CategoryText>
+                  </CategoryCard>
+                );
+              }) }
             </CategoryList>
           </CategoryGroup>
           <ProfileDetailGroup>
             <Title>プロフィール</Title>
-            <ProfileDetailList>
-              <ProfileDetail>
-                <ProfileDetailTitle>出身地</ProfileDetailTitle>
-                <ProfileDetailText>神奈川県</ProfileDetailText>
-              </ProfileDetail>
-              <ProfileDetail>
-                <ProfileDetailTitle>血液型</ProfileDetailTitle>
-                <ProfileDetailText>A</ProfileDetailText>
-              </ProfileDetail>
-              <ProfileDetail>
-                <ProfileDetailTitle>体型</ProfileDetailTitle>
-                <ProfileDetailText>筋肉質</ProfileDetailText>
-              </ProfileDetail>
-            </ProfileDetailList>
+              <ProfileDetailList>
+                { this.props.user.profile.map((item: any, index: number) => {
+                  return (
+                    <ProfileDetail key={index}>
+                      <ProfileDetailTitle>{item.title}</ProfileDetailTitle>
+                      <ProfileDetailText>{item.text}</ProfileDetailText>
+                    </ProfileDetail>
+                  );
+                }) }
+              </ProfileDetailList>
           </ProfileDetailGroup>
         </Profile>
       </Container>
