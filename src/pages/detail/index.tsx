@@ -5,6 +5,7 @@ import {
   CategoryGroup, Title, CategoryList, CategoryCard, CategoryImage, CategoryText,
   ProfileDetailGroup, ProfileDetail, ProfileDetailList, ProfileDetailTitle, ProfileDetailText,
 } from './style';
+import { interpolate } from '@popmotion/popcorn';
 
 interface IDetail {
   userIndex: number;
@@ -32,13 +33,17 @@ export default class Detail extends React.Component<IDetail> {
   }
 
   public render() {
+    const test = interpolate(
+      [100, 200, 300, 400, 500, 600, 700, 800, 900],
+      [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    );
     return (
       <Container pose={this.props.user.isDetail ? 'visible' : 'hidden'} mobileHeight={this.props.style.mobileHeight}>
         <Header>
           <CloseButton onClick={() => this.hideDetail()} />
           <OptionButton />
         </Header>
-        <Image mobileHeight={this.props.style.mobileHeight}>
+        <Image onValueChange={{ y: (y: any) => console.log(test(y)) }} mobileHeight={this.props.style.mobileHeight}>
           <img src={this.props.user.mainImage} alt="プロフィール画像"/>
         </Image>
         <Profile>

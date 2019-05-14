@@ -1,10 +1,19 @@
 import styled from 'styled-components';
 import posed from 'react-pose';
+import { transform } from 'popmotion'
+// import { interpolate } from '@popmotion/popcorn';
+// import { interpolate } from 'transform';
 import { color } from '../../assets/stylesheets/variables';
 import iconClose from 'images/icons/close.svg';
 import iconConfirmation from 'images/icons/confirmation.svg';
 import iconOption from 'images/icons/option.svg';
 import iconNew from 'images/icons/new.svg';
+
+// const { interpolate } = transform;
+
+// const { transform } = popmotion;
+const { interpolate } = transform;
+
 
 const PoseContainer = posed.div({
   visible: {
@@ -56,6 +65,17 @@ interface IImage {
 };
 
 const PoseImage = posed.div({
+  draggable: 'y',
+  dragBounds: {
+    top: 0,
+    bottom: 88,
+  },
+  passive: {
+    opacity: ['y', interpolate(
+      [-100, -50, 50, 100],
+      [0, 1, 1, 0]
+    )],
+  },
   visible: {
     y: 0,
     // 一見無駄な書き方に見えるが、アニメーション前後で同じ形式じゃないといけない
