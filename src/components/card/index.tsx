@@ -8,9 +8,14 @@ interface ICard {
   isCurrent: boolean;
   user: any;
   updateState: (state: any) => void;
+  onRef: any;
 };
 
 export default class Card extends React.Component<ICard> {
+  public state: any = {
+    isHiddenNew: false,
+  };
+
   private changeImage(index: number): void {
     let user: any = this.props.user;
 
@@ -28,13 +33,27 @@ export default class Card extends React.Component<ICard> {
     this.props.updateState(state);
   }
 
+  public componentDidMount() {
+    this.props.onRef(this);
+  }
+
+  public componentWillUnmount() {
+    this.props.onRef(undefined);
+  }
+
+  public hiddenNew(): void {
+    this.setState({isHiddenNew: true});
+  };
+
   public render() {
     return (
       <Container
         onClick={() => this.showDetail()}
-        pose={this.props.user.isDetail ? 'fadeOut' : 'fadeIn'}
-      >
-        { (this.props.user.isNew && this.props.isCurrent) && <New />}
+        pose={this.props.user.isDetail ? 'fadeOut' : 'fadeIn'}>
+        {
+          (this.props.user.isNew && this.props.isCurrent) &&
+          <New pose={this.state.isHiddenNew ? 'hiddenNew' : 'fadeIn'} />
+        }
         <Image src={this.props.user.mainImage} alt="プロフィール画像" />
         <Inner>
           <Profile>

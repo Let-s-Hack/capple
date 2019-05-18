@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   Container, Header, HeaderArrow, HeaderTitle, HeaderCard,
-  CardGroup, CardOuter, CardLikeInner, LikeIcon, LikeText, CardUnLikeInner, UnLikeIcon, UnLikeText,
+  CardGroup, CardOuter, CardInner, CardLikeInner, LikeIcon, LikeText, CardUnLikeInner, UnLikeIcon, UnLikeText,
   ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
 } from './style';
 import Detail from '../detail';
@@ -16,12 +16,21 @@ interface IFind {
   showNextUser: () => void;
 };
 
-export default class Find extends React.Component<IFind> {
+interface IState {
+  refs: any,
+}
+
+export default class Find extends React.Component<IFind, IState> {
+  public state: IState = {
+    refs: []
+  };
+
   private execAction(actionKey: string): void {
     let state = this.props;
     state.users[state.userIndex][actionKey] = true;
+    this.state.refs[state.userIndex].hiddenNew();
     this.props.updateState(state);
-  }
+  };
 
   private createCardDOM(): any {
     let cards = [];
@@ -40,19 +49,22 @@ export default class Find extends React.Component<IFind> {
           }
           onPoseComplete={() => this.props.showNextUser()}
         >
-          <CardLikeInner>
-            <LikeIcon />
-            <LikeText>いいかも！</LikeText>
-          </CardLikeInner>
-          <CardUnLikeInner>
-            <UnLikeIcon />
-            <UnLikeText>イマイチ<span>...</span></UnLikeText>
-          </CardUnLikeInner>
-          <Card
-            isCurrent={this.props.userIndex === i}
-            user={this.props.users[i]}
-            updateState={this.props.updateState}
-          />
+          <CardInner>
+            <CardLikeInner>
+              <LikeIcon />
+              <LikeText>いいかも！</LikeText>
+            </CardLikeInner>
+            <CardUnLikeInner>
+              <UnLikeIcon />
+              <UnLikeText>イマイチ<span>...</span></UnLikeText>
+            </CardUnLikeInner>
+            <Card
+              isCurrent={this.props.userIndex === i}
+              user={this.props.users[i]}
+              updateState={this.props.updateState}
+              onRef={(ref: any) => this.state.refs[i] = ref}
+            />
+          </CardInner>
         </CardOuter>
       )
     }

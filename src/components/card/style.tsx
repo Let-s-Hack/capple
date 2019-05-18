@@ -39,7 +39,31 @@ export const Container = styled(PoseContainer)`
   z-index: 98;
 `;
 
-const PoseNew = posed.div(fade);
+const PoseNew = posed.div({
+  drag: {
+    opacity: 0,
+  },
+  hiddenNew: {
+    opacity: 0,
+    transition: {
+      duration: 100,
+    },
+  },
+  fadeIn: {
+    opacity: 1,
+    transition: {
+      delay: 300,
+      duration: 300,
+    },
+  },
+  fadeOut: {
+    opacity: 0,
+    transition: {
+      delay: 300,
+      duration: 300,
+    },
+  },
+});
 
 export const New = styled(PoseNew)`
   position: absolute;

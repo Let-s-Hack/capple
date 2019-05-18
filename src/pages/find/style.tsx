@@ -181,7 +181,6 @@ const PoseCardOuter = posed.div({
   },
   unLike: {
     left: '100vw',
-    transform: 'rotate(2deg)',
     transition: {
       duration: 150,
       delay: 100,
@@ -189,7 +188,6 @@ const PoseCardOuter = posed.div({
   },
   default: {
     left: '0vw',
-    transform: 'rotate(0deg)',
   }
 });
 
@@ -200,6 +198,24 @@ export const CardOuter = styled(PoseCardOuter)`
   flex: 1;
   display: flex;
   z-index: 98;
+`;
+
+const PoseCardInner = posed.div({
+  unLike: {
+    transform: 'rotate(2deg)',
+    transition: {
+      duration: 150,
+      delay: 100,
+    }
+  },
+  default: {
+    transform: 'rotate(0deg)',
+  }
+});
+
+export const CardInner = styled(PoseCardInner)`
+  width: 100%;
+  height: 100%;
 `;
 
 const PoseCardLikeInner = posed.div({
