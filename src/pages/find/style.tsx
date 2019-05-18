@@ -45,6 +45,7 @@ export const Container = styled.div`
   overflow: hidden;
   transition: all 0.3s ease;
   filter: ${(props: IContainer) => props.isMatching ? 'blur(12px)' : 'none'};
+  background-image: linear-gradient(to bottom, white, #F6F6F8);
 
   &::before {
     content: '';
@@ -119,8 +120,8 @@ export const Like = styled(PoseButton)`
   width: 69px;
   height: 69px;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background: url(${iconLike}) center 21px / 100% 28px no-repeat;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background: white url(${iconLike}) center 21px / 100% 28px no-repeat;
 `;
 
 export const SuperLike = styled.div`
@@ -128,16 +129,16 @@ export const SuperLike = styled.div`
   height: 52px;
   margin: 0 14px;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background: url(${iconSuperLike}) 1px 12px / 100% 27px no-repeat;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background: white url(${iconSuperLike}) 1px 12px / 100% 27px no-repeat;
 `;
 
 export const UnLike = styled(PoseButton)`
   width: 69px;
   height: 69px;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background: url(${iconUnLike}) 1px 20px / 100% 28px no-repeat;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background: white url(${iconUnLike}) 1px 20px / 100% 28px no-repeat;
 `;
 
 export const Setting = styled.div`

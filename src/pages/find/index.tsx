@@ -30,14 +30,18 @@ export default class Find extends React.Component<IFind> {
       }
 
       cards.push(
-          <Card
-            key={i}
-            isCurrent={this.props.userIndex === i}
-            user={this.props.users[i]}
-            updateState={this.props.updateState}
-            pose={this.props.users[i].isUnLike ? 'unLike' : 'default'}
-            onPoseComplete={() => this.props.showNextUser()}
-          />
+        <Card
+          key={i}
+          isCurrent={this.props.userIndex === i}
+          user={this.props.users[i]}
+          updateState={this.props.updateState}
+          pose={
+            this.props.users[i].isLike ? 'like' :
+            this.props.users[i].isUnLike ? 'unLike' :
+            'default'
+          }
+          onPoseComplete={() => this.props.showNextUser()}
+        />
       )
     }
 

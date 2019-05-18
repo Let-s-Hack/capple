@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Container, CardUnLikeInner, UnLikeIcon, UnLikeText, New, Image, Inner,
+  Container, CardLikeInner, LikeIcon, LikeText, CardUnLikeInner, UnLikeIcon, UnLikeText, New, Image, Inner,
   Profile, Title, Text, ThumbnailList, Thumbnail, Apeal
 } from './style';
 
@@ -37,6 +37,10 @@ export default class Card extends React.Component<ICard> {
         pose={this.props.pose}
         onPoseComplete={() => this.props.onPoseComplete()}
       >
+        <CardLikeInner>
+          <LikeIcon />
+          <LikeText>いいかも！</LikeText>
+        </CardLikeInner>
         <CardUnLikeInner>
           <UnLikeIcon />
           <UnLikeText>イマイチ<span>...</span></UnLikeText>
