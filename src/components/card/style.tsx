@@ -1,8 +1,31 @@
 import styled from 'styled-components';
+import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
 import iconNew from 'images/icons/new.svg';
 
-export const Container = styled.div`
+const fade = {
+  fadeIn: {
+    opacity: 1,
+    transition: {
+      delay: 300,
+      duration: 300,
+    },
+  },
+  fadeOut: {
+    opacity: 0,
+    transition: {
+      delay: 300,
+      duration: 300,
+    },
+  },
+};
+
+const PoseContainer = posed.div({
+  fadeIn: {},
+  fadeOut: {},
+});
+
+export const Container = styled(PoseContainer)`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -14,19 +37,11 @@ export const Container = styled.div`
   border-radius: 16px;
   background: white;
   z-index: 98;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 160px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.57));
-    border-radius: 0 0 16px 16px;
-  }
 `;
 
-export const New = styled.div`
+const PoseNew = posed.div(fade);
+
+export const New = styled(PoseNew)`
   position: absolute;
   top: -6px;
   right: -6px;
@@ -45,13 +60,24 @@ export const Image = styled.img`
   border-radius: 16px;
 `;
 
-export const Inner = styled.div`
-  display: flex;
+const PoseInner = posed.div(fade);
+
+export const Inner = styled(PoseInner)`
+  flex-direction: column;
   align-items: flex-end;
   z-index: 100;
+  background: red;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.57));
+  border-radius: 0 0 16px 16px;
 `;
 
 export const Profile = styled.div`
+  display: flex;
+`;
+
+export const TextGroup = styled.div`
+  display: flex;
+  flex-direction: column;
   flex: 0 0 auto;
   margin-left: 24px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
