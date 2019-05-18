@@ -1,39 +1,8 @@
 import styled from 'styled-components';
-import posed from 'react-pose';
-import { transform } from 'popmotion';
 import { color } from '../../assets/stylesheets/variables';
-import iconLike from 'images/icons/like.svg';
-import iconUnLike from 'images/icons/unlike.svg';
 import iconNew from 'images/icons/new.svg';
 
-const { interpolate } = transform;
-
-const PoseContainer = posed.div({
-  draggable: true,
-  dragEnd: {
-    x: 0,
-    y: 0,
-    transition: {
-      type: 'physics',
-      friction: 0.98,
-      springStrength: 1000,
-    },
-  },
-  unLike: {
-    left: '100vw',
-    transform: 'rotate(2deg)',
-    transition: {
-      duration: 150,
-      delay: 100,
-    }
-  },
-  default: {
-    left: '0vw',
-    transform: 'rotate(0deg)',
-  }
-});
-
-export const Container = styled(PoseContainer)`
+export const Container = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -54,118 +23,6 @@ export const Container = styled(PoseContainer)`
     height: 160px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.57));
     border-radius: 0 0 16px 16px;
-  }
-`;
-
-const PoseCardLikeInner = posed.div({
-  drag: {
-    zIndex: 110,
-  },
-  passive: {
-    opacity: ['x', interpolate(
-      [0, -50, -100],
-      [0, 0, 1]
-    ), true],
-  },
-  like: {
-    opacity: 1,
-    zIndex: 99,
-    transition: {
-      duration: 100,
-    },
-  },
-  default: {
-    opacity: 0,
-    zIndex: 98,
-  },
-});
-
-export const CardLikeInner = styled(PoseCardLikeInner)`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-  background: rgba(237, 82, 146, 0.68);
-  z-index: 110;
-`;
-
-export const LikeIcon = styled.div`
-  display: block;
-  width: 120px;
-  height: 120px;
-  margin-top: 98px;
-  border-radius: 50%;
-  background: white url(${iconLike}) 50% 50% / 50% no-repeat;
-`;
-
-export const LikeText = styled.p`
-  margin-top: 24px;
-  text-align: center;
-  font-size: 26px;
-  font-weight: bold;
-  color: white;
-
-  > span {
-    font-size: 21px;
-  }
-`;
-
-const PoseCardUnLikeInner = posed.div({
-  dragStart: {
-    zIndex: 110,
-  },
-  passive: {
-    opacity: ['x', interpolate(
-      [0, 50, 100],
-      [0, 0, 1]
-    ), true],
-  },
-  unLike: {
-    opacity: 1,
-    zIndex: 99,
-    transition: {
-      duration: 100,
-    },
-  },
-  default: {
-    opacity: 0,
-    zIndex: 98,
-  },
-});
-
-export const CardUnLikeInner = styled(PoseCardUnLikeInner)`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-  background: rgba(83, 102, 151, 0.68);
-  z-index: 110;
-`;
-
-export const UnLikeIcon = styled.div`
-  display: block;
-  width: 120px;
-  height: 120px;
-  margin-top: 98px;
-  border-radius: 50%;
-  background: white url(${iconUnLike}) 50% 50% / 50% no-repeat;
-`;
-
-export const UnLikeText = styled.p`
-  margin-top: 24px;
-  text-align: center;
-  font-size: 26px;
-  font-weight: bold;
-  color: white;
-
-  > span {
-    font-size: 21px;
   }
 `;
 

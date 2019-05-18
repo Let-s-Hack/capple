@@ -1,6 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
+import { transform } from 'popmotion';
+
 import iconArrow from 'images/icons/arrow.svg';
 import iconCard from 'images/icons/card.svg';
 import iconLike from 'images/icons/like.svg';
@@ -9,6 +11,8 @@ import iconUnLike from 'images/icons/unlike.svg';
 import iconSetting from 'images/icons/setting.svg';
 import iconShop from 'images/icons/shop.svg';
 import iconNew from 'images/icons/new.svg';
+
+const { interpolate } = transform;
 
 const fadeIn = keyframes`
   from {
@@ -164,19 +168,116 @@ export const CardGroup = styled.div`
   margin: 32px 16px 10px 16px;
 `;
 
-const PoseCardUnLikeInner = posed.div({
+const PoseCardOuter = posed.div({
+  draggable: true,
+  dragEnd: {
+    x: 0,
+    y: 0,
+    transition: {
+      type: 'physics',
+      friction: 0.98,
+      springStrength: 1000,
+    },
+  },
   unLike: {
+    left: '100vw',
+    transform: 'rotate(2deg)',
+    transition: {
+      duration: 150,
+      delay: 100,
+    }
+  },
+  default: {
+    left: '0vw',
+    transform: 'rotate(0deg)',
+  }
+});
+
+export const CardOuter = styled(PoseCardOuter)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  z-index: 98;
+`;
+
+const PoseCardLikeInner = posed.div({
+  drag: {
+    zIndex: 110,
+  },
+  passive: {
+    opacity: ['x', interpolate(
+      [0, -50, -100],
+      [0, 0, 1]
+    ), true],
+  },
+  like: {
     opacity: 1,
+    zIndex: 99,
     transition: {
       duration: 100,
-    },
-    applyAtStart: {
-      display: 'flex',
     },
   },
   default: {
     opacity: 0,
-    display: 'none',
+    zIndex: 98,
+  },
+});
+
+export const CardLikeInner = styled(PoseCardLikeInner)`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: rgba(237, 82, 146, 0.68);
+  z-index: 110;
+`;
+
+export const LikeIcon = styled.div`
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin-top: 98px;
+  border-radius: 50%;
+  background: white url(${iconLike}) 50% 50% / 50% no-repeat;
+`;
+
+export const LikeText = styled.p`
+  margin-top: 24px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+
+  > span {
+    font-size: 21px;
+  }
+`;
+
+const PoseCardUnLikeInner = posed.div({
+  drag: {
+    zIndex: 110,
+  },
+  passive: {
+    opacity: ['x', interpolate(
+      [0, 50, 100],
+      [0, 0, 1]
+    ), true],
+  },
+  unLike: {
+    opacity: 1,
+    zIndex: 99,
+    transition: {
+      duration: 100,
+    },
+  },
+  default: {
+    opacity: 0,
+    zIndex: 98,
   },
 });
 

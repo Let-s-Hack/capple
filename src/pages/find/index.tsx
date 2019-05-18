@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {
   Container, Header, HeaderArrow, HeaderTitle, HeaderCard,
-  CardGroup, ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
+  CardGroup, CardOuter, CardLikeInner, LikeIcon, LikeText, CardUnLikeInner, UnLikeIcon, UnLikeText,
+  ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
 } from './style';
 import Detail from '../detail';
 import Card from '../../components/card';
@@ -30,18 +31,29 @@ export default class Find extends React.Component<IFind> {
       }
 
       cards.push(
-        <Card
+        <CardOuter
           key={i}
-          isCurrent={this.props.userIndex === i}
-          user={this.props.users[i]}
-          updateState={this.props.updateState}
           pose={
             this.props.users[i].isLike ? 'like' :
             this.props.users[i].isUnLike ? 'unLike' :
             'default'
           }
           onPoseComplete={() => this.props.showNextUser()}
-        />
+        >
+          <CardLikeInner>
+            <LikeIcon />
+            <LikeText>いいかも！</LikeText>
+          </CardLikeInner>
+          <CardUnLikeInner>
+            <UnLikeIcon />
+            <UnLikeText>イマイチ<span>...</span></UnLikeText>
+          </CardUnLikeInner>
+          <Card
+            isCurrent={this.props.userIndex === i}
+            user={this.props.users[i]}
+            updateState={this.props.updateState}
+          />
+        </CardOuter>
       )
     }
 

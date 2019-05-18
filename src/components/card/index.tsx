@@ -1,15 +1,13 @@
 import * as React from 'react';
 import {
-  Container, CardLikeInner, LikeIcon, LikeText, CardUnLikeInner, UnLikeIcon, UnLikeText, New, Image, Inner,
+  Container, New, Image, Inner,
   Profile, Title, Text, ThumbnailList, Thumbnail, Apeal
 } from './style';
 
 interface ICard {
   isCurrent: boolean;
   user: any;
-  pose: string;
   updateState: (state: any) => void;
-  onPoseComplete: () => void;
 };
 
 export default class Card extends React.Component<ICard> {
@@ -32,19 +30,7 @@ export default class Card extends React.Component<ICard> {
 
   public render() {
     return (
-      <Container
-        onClick={() => this.showDetail()}
-        pose={this.props.pose}
-        onPoseComplete={() => this.props.onPoseComplete()}
-      >
-        <CardLikeInner>
-          <LikeIcon />
-          <LikeText>いいかも！</LikeText>
-        </CardLikeInner>
-        <CardUnLikeInner>
-          <UnLikeIcon />
-          <UnLikeText>イマイチ<span>...</span></UnLikeText>
-        </CardUnLikeInner>
+      <Container onClick={() => this.showDetail()}>
         { (this.props.user.isNew && this.props.isCurrent) && <New />}
         <Image src={this.props.user.mainImage} alt="プロフィール画像" />
         <Inner>
