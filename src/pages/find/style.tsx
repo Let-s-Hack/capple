@@ -169,16 +169,6 @@ export const CardGroup = styled.div`
 `;
 
 const PoseCardOuter = posed.div({
-  draggable: true,
-  dragEnd: {
-    x: 0,
-    y: 0,
-    transition: {
-      type: 'physics',
-      friction: 0.98,
-      springStrength: 1000,
-    },
-  },
   unLike: {
     left: '100vw',
     transition: {
@@ -201,6 +191,16 @@ export const CardOuter = styled(PoseCardOuter)`
 `;
 
 const PoseCardInner = posed.div({
+  draggable: true,
+  dragEnd: {
+    x: 0,
+    y: 0,
+    transition: {
+      type: 'physics',
+      friction: 0.98,
+      springStrength: 1000,
+    },
+  },
   unLike: {
     transform: 'rotate(2deg)',
     transition: {
@@ -250,7 +250,6 @@ export const CardLikeInner = styled(PoseCardLikeInner)`
   height: 100%;
   border-radius: 16px;
   background: rgba(237, 82, 146, 0.68);
-  z-index: 110;
 `;
 
 export const LikeIcon = styled.div`
@@ -306,7 +305,6 @@ export const CardUnLikeInner = styled(PoseCardUnLikeInner)`
   height: 100%;
   border-radius: 16px;
   background: rgba(83, 102, 151, 0.68);
-  z-index: 110;
 `;
 
 export const UnLikeIcon = styled.div`
