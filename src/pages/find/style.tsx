@@ -193,13 +193,63 @@ export const CardOuter = styled(PoseCardOuter)`
 const PoseCardInner = posed.div({
   draggable: true,
   dragEnd: {
-    x: 0,
-    y: 0,
-    transition: {
-      type: 'physics',
-      friction: 0.98,
-      springStrength: 1000,
+    x: (gestureState: any) => {
+      console.log('colled');
+      if (gestureState.key === 'x' && 50 < Math.abs(gestureState.from)) {
+        console.log('colled');
+        return 300;
+      } else {
+        return 0;
+      }
     },
+    // x: 0,
+    y: 0,
+    // transition: {
+    //   type: 'physics',
+    //   friction: 0.98,
+    //   springStrength: 1000,
+    // },
+    transition: ({ from, to, velocity }: any) => {
+      if (from <= -50) { // 親のを参照・・・？
+        return {
+          type: 'tween',
+          ease: 'linear',
+          from,
+          to: -window.innerWidth,
+          duration: 280
+        };
+      }
+      console.log(from);
+      console.log(to);
+      console.log(velocity);
+      return {
+        type: 'physics',
+        friction: 0.98,
+        springStrength: 1000,
+      }
+    }
+    // transition: (gestureState: any, triggerDistance: any) => {
+    //   console.log(gestureState)
+    //   console.log(triggerDistance);
+      
+      // console.log(gestureState.key)
+      // console.log(gestureState.from)
+
+      // const from = gestureState.from;
+      // if (gestureState.key === 'x' && 50 < Math.abs(gestureState.from)) {
+      //   console.log('colled');
+      //   return {
+      //     left: '100vw',
+      //     marginBottom: 500,
+      //   }
+      // }
+
+      // return {
+      //   type: 'physics',
+      //   friction: 0.98,
+      //   springStrength: 1000,
+      // }
+    // },
   },
   unLike: {
     transform: 'rotate(2deg)',
@@ -224,7 +274,7 @@ const PoseCardLikeInner = posed.div({
   },
   passive: {
     opacity: ['x', interpolate(
-      [0, -50, -100],
+      [0, -25, -50],
       [0, 0, 1]
     ), true],
   },
@@ -279,7 +329,7 @@ const PoseCardUnLikeInner = posed.div({
   },
   passive: {
     opacity: ['x', interpolate(
-      [0, 50, 100],
+      [0, 25, 50],
       [0, 0, 1]
     ), true],
   },
