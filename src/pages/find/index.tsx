@@ -7,10 +7,6 @@ import {
 import Detail from '../detail';
 import Card from '../../components/card';
 import Matching from '../../components/matching';
-// import posed from 'react-pose';
-// import styled from 'styled-components';
-// import { transform, value } from 'popmotion';
-// const { pipe, interpolate, clamp, blendColor } = transform;
 import { value } from 'popmotion';
 
 interface IFind {
@@ -23,11 +19,13 @@ interface IFind {
 
 interface IState {
   refs: any,
+  cardValues: any,
 }
 
 export default class Find extends React.Component<IFind, IState> {
   public state: IState = {
-    refs: []
+    refs: [],
+    cardValues: [],
   };
 
   private execAction(actionKey: string): void {
@@ -37,11 +35,29 @@ export default class Find extends React.Component<IFind, IState> {
     this.props.updateState(state);
   };
 
-  // private swipeCard(x: number): void {
-  //   if (x < 50 || 300 < x ) {
-  //     this.props.showNextUser();
-  //   }
-  // }
+  triggerDistance = 50;
+  dragEndSwipe = (i: number) => {
+    const x = this.state.cardValues[i].x.get();
+    console.log(x);
+
+    if (x <= -this.triggerDistance) {
+      // いいかも
+      setTimeout(() => {
+        // this.execAction('isMatching');
+        this.props.showNextUser();
+        console.log('swipe like');
+        
+      }, 280);
+    } else if (this.triggerDistance <= x) {
+      // いまいち
+      setTimeout(() => {
+        // this.execAction('isUnLike');
+        this.props.showNextUser();
+        console.log('swipe unlike');
+        
+      }, 280);
+    }
+  };
 
   private createCardDOM(): any {
     let cards = [];
@@ -49,7 +65,9 @@ export default class Find extends React.Component<IFind, IState> {
       if (i >= this.props.users.length) {
         break;
       }
-      const v = { x: this.x };
+
+      // カードごとの位置や速度の状態を保持する https://popmotion.io/api/value/
+      this.state.cardValues.push({ x: value(0) });
 
       cards.push(
         <CardOuter
@@ -59,25 +77,20 @@ export default class Find extends React.Component<IFind, IState> {
             this.props.users[i].isUnLike ? 'unLike' :
             'default'
           }
+          values={this.state.cardValues[i]}
+          // 即時関数で呼び出さないといけないみたい
+          onDragEnd={() => this.dragEndSwipe(i)}
           onPoseComplete={() => this.props.showNextUser()}
         >
-          <CardInner
-            // onDragEnd={(e: any, gestureState: any) => {
-              // this.swipeCard(e.changedTouches[0].pageX);
-              // console.log(e.changedTouches[0].pageX);
-            //   console.log(gestureState);
-            // }}
-            onDragEnd={this.onDragEnd}
-            values={v}
-          >
-            <CardLikeInner>
-              <LikeIcon />
-              <LikeText>いいかも！</LikeText>
-            </CardLikeInner>
-            <CardUnLikeInner>
-              <UnLikeIcon />
-              <UnLikeText>イマイチ<span>...</span></UnLikeText>
-            </CardUnLikeInner>
+          <CardLikeInner>
+            <LikeIcon />
+            <LikeText>いいかも！</LikeText>
+          </CardLikeInner>
+          <CardUnLikeInner>
+            <UnLikeIcon />
+            <UnLikeText>イマイチ<span>...</span></UnLikeText>
+          </CardUnLikeInner>
+          <CardInner>
             <Card
               isCurrent={this.props.userIndex === i}
               user={this.props.users[i]}
@@ -92,87 +105,11 @@ export default class Find extends React.Component<IFind, IState> {
     return cards.reverse();
   }
 
-  triggerDistance = 100;
-  x = value(0);
-
-  onDragEnd = () => {
-    const x = this.x.get();
-
-    if (x <= -this.triggerDistance) {
-      setTimeout(() => {
-        this.props.showNextUser();
-        console.log("swiped");
-      }, 280);
-    }
-  };
-
   public render() {
-    // const PoseSwipeable = posed.div({
-    //   draggable: 'x',
-    //   dragBounds: {
-    //     right: 0
-    //   },
-    //   dragEnd: {
-    //     transition: ({ from, to, velocity }: any) => {
-    //       if (from <= -this.triggerDistance) {
-    //         return {
-    //           type: 'tween',
-    //           ease: 'linear',
-    //           from,
-    //           to: -window.innerWidth,
-    //           duration: 280
-    //         };
-    //       }
-    //       console.log(from);
-    //       console.log(to);
-    //       console.log(velocity);
-    //       return {
-    //         type: 'spring',
-    //         from,
-    //         to,
-    //         velocity,
-    //         stiffness: 750,
-    //         damping: 50
-    //       };
-    //     }
-    //   }
-    // });
-
-    // const Swipeable = styled(PoseSwipeable)`
-    //   width: 100%;
-    //   height: 40px;
-    //   background: red;
-    //   z-index: 1000;
-    //   position: relative;
-    // `;
-
-    // const PosedSwipeableForeground = posed.div({
-    //   passive: {
-    //     backgroundColor: [
-    //       'x',
-    //       pipe(
-    //         interpolate([0, -this.triggerDistance], [0, 1]),
-    //         clamp(0, 1),
-    //         blendColor('#ccc', '#4d11da')
-    //       ),
-    //       true
-    //     ]
-    //   }
-    // });
-
-    // const SwipeableForeground = styled(PosedSwipeableForeground)`
-    //   width: 100%;
-    //   height: 40px;
-    //   z-index: 1000;
-    //   position: relative;
-    // `;
-
     let currentUser = this.props.users[this.props.userIndex];
 
     return (
       <React.Fragment>
-        {/* <SwipeableForeground parentValues={v} />
-        <Swipeable onDragEnd={this.onDragEnd} values={v} /> */}
         <Matching
           user={currentUser}
           style={this.props.style}

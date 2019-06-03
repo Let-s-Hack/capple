@@ -169,16 +169,57 @@ export const CardGroup = styled.div`
 `;
 
 const PoseCardOuter = posed.div({
+  draggable: true,
+  passive: {
+    rotate: ['x', interpolate(
+      [0, 25, 50],
+      [0, 0, 1]
+    ), true],
+  },
+  dragEnd: {
+    x: 0,
+    y: 0,
+    transition: ({ from, to, velocity }: any) => {
+      if (from <= -50) { // 親のを参照する？
+        return {
+          type: 'tween',
+          ease: 'linear',
+          from,
+          to: -window.innerWidth,
+          duration: 280
+        };
+      } else if (50 <= from) {
+        return {
+          type: 'tween',
+          ease: 'linear',
+          from,
+          to: window.innerWidth,
+          duration: 280
+        };
+      }
+      
+      return {
+        type: 'physics',
+        friction: 0.98,
+        springStrength: 1000,
+        duration: ['x', interpolate(
+          [0, 50, 100],
+          [0, 0, 1000]
+        ), true],
+      }
+    }
+  },
   unLike: {
-    left: '100vw',
+    x: window.innerWidth,
     transition: {
       duration: 150,
       delay: 100,
     }
   },
   default: {
-    left: '0vw',
-  }
+    x: 0,
+    y: 0,
+  },
 });
 
 export const CardOuter = styled(PoseCardOuter)`
@@ -191,75 +232,21 @@ export const CardOuter = styled(PoseCardOuter)`
 `;
 
 const PoseCardInner = posed.div({
-  draggable: true,
-  dragEnd: {
-    x: (gestureState: any) => {
-      console.log('colled');
-      if (gestureState.key === 'x' && 50 < Math.abs(gestureState.from)) {
-        console.log('colled');
-        return 300;
-      } else {
-        return 0;
-      }
-    },
-    // x: 0,
-    y: 0,
-    // transition: {
-    //   type: 'physics',
-    //   friction: 0.98,
-    //   springStrength: 1000,
-    // },
-    transition: ({ from, to, velocity }: any) => {
-      if (from <= -50) { // 親のを参照・・・？
-        return {
-          type: 'tween',
-          ease: 'linear',
-          from,
-          to: -window.innerWidth,
-          duration: 280
-        };
-      }
-      console.log(from);
-      console.log(to);
-      console.log(velocity);
-      return {
-        type: 'physics',
-        friction: 0.98,
-        springStrength: 1000,
-      }
-    }
-    // transition: (gestureState: any, triggerDistance: any) => {
-    //   console.log(gestureState)
-    //   console.log(triggerDistance);
-      
-      // console.log(gestureState.key)
-      // console.log(gestureState.from)
-
-      // const from = gestureState.from;
-      // if (gestureState.key === 'x' && 50 < Math.abs(gestureState.from)) {
-      //   console.log('colled');
-      //   return {
-      //     left: '100vw',
-      //     marginBottom: 500,
-      //   }
-      // }
-
-      // return {
-      //   type: 'physics',
-      //   friction: 0.98,
-      //   springStrength: 1000,
-      // }
-    // },
+  passive: {
+    rotate: ['x', interpolate(
+      [-window.innerWidth, 0, window.innerWidth],
+      [4, 0, -4],
+    ), true],
   },
   unLike: {
-    transform: 'rotate(2deg)',
+    rotate: 2,
     transition: {
       duration: 150,
       delay: 100,
     }
   },
   default: {
-    transform: 'rotate(0deg)',
+    rotate: 0,
   }
 });
 
@@ -276,6 +263,10 @@ const PoseCardLikeInner = posed.div({
     opacity: ['x', interpolate(
       [0, -25, -50],
       [0, 0, 1]
+    ), true],
+    rotate: ['x', interpolate(
+      [-window.innerWidth, 0, window.innerWidth],
+      [4, 0, -4],
     ), true],
   },
   like: {
@@ -331,6 +322,10 @@ const PoseCardUnLikeInner = posed.div({
     opacity: ['x', interpolate(
       [0, 25, 50],
       [0, 0, 1]
+    ), true],
+    rotate: ['x', interpolate(
+      [-window.innerWidth, 0, window.innerWidth],
+      [4, 0, -4],
     ), true],
   },
   unLike: {
