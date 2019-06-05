@@ -262,7 +262,7 @@ const PoseCardLikeInner = posed.div({
     },
     x: 0,
     transition: {
-      delay: 10,
+      delay: 80,
       duration: 0,
     },
   },
@@ -333,7 +333,7 @@ const PoseCardUnLikeInner = posed.div({
     },
     x: 0,
     transition: {
-      delay: 10,
+      delay: 80,
       duration: 0,
     },
   },
