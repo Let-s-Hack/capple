@@ -197,7 +197,7 @@ const PoseCardOuter = posed.div({
           duration: 280
         };
       }
-      
+
       return {
         type: 'physics',
         friction: 0.98,
@@ -257,7 +257,19 @@ export const CardInner = styled(PoseCardInner)`
 
 const PoseCardLikeInner = posed.div({
   drag: {
-    zIndex: 110,
+    applyAtStart: {
+      display: 'flex',
+    },
+    x: 0,
+    transition: {
+      delay: 10,
+      duration: 0,
+    },
+  },
+  dragEnd: {
+    applyAtStart: {
+      display: 'none',
+    },
   },
   passive: {
     opacity: ['x', interpolate(
@@ -271,19 +283,19 @@ const PoseCardLikeInner = posed.div({
   },
   like: {
     opacity: 1,
-    zIndex: 99,
     transition: {
       duration: 100,
     },
   },
   default: {
     opacity: 0,
-    zIndex: 98,
+    x: -window.innerWidth,
   },
 });
 
 export const CardLikeInner = styled(PoseCardLikeInner)`
   position: absolute;
+  z-index: 110;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -316,7 +328,19 @@ export const LikeText = styled.p`
 
 const PoseCardUnLikeInner = posed.div({
   drag: {
-    zIndex: 110,
+    applyAtStart: {
+      display: 'flex',
+    },
+    x: 0,
+    transition: {
+      delay: 10,
+      duration: 0,
+    },
+  },
+  dragEnd: {
+    applyAtStart: {
+      display: 'none',
+    },
   },
   passive: {
     opacity: ['x', interpolate(
@@ -330,19 +354,19 @@ const PoseCardUnLikeInner = posed.div({
   },
   unLike: {
     opacity: 1,
-    zIndex: 99,
     transition: {
       duration: 100,
     },
   },
   default: {
     opacity: 0,
-    zIndex: 98,
+    x: window.innerWidth,
   },
 });
 
 export const CardUnLikeInner = styled(PoseCardUnLikeInner)`
   position: absolute;
+  z-index: 110;
   display: flex;
   flex-direction: column;
   align-items: center;
