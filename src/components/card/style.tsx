@@ -42,6 +42,9 @@ export const Container = styled(PoseContainer)`
 const PoseNew = posed.div({
   drag: {
     opacity: 0,
+    transition: {
+      delay: 80,
+    },
   },
   hiddenNew: {
     opacity: 0,

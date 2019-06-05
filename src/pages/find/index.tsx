@@ -36,24 +36,29 @@ export default class Find extends React.Component<IFind, IState> {
   };
 
   triggerDistance = 50;
-  dragEndSwipe = (i: number) => {
+
+  // スワイプ処理
+  private dragEndSwipe = (i: number) => {
     const x = this.state.cardValues[i].x.get();
 
     if (x <= -this.triggerDistance) {
       // いいかも
       setTimeout(() => {
         this.props.showNextUser();
-        // カードの状態を初期化
-        this.state.cardValues[i].x = value(0);
+        this.resetCardValue(i);
       }, 280);
     } else if (this.triggerDistance <= x) {
       // いまいち
       setTimeout(() => {
         this.props.showNextUser();
-        // カードの状態を初期化
-        this.state.cardValues[i].x = value(0);
+        this.resetCardValue(i);
       }, 280);
     }
+  };
+
+  // カードの状態を初期化
+  private resetCardValue = (i: number) => {
+    this.state.cardValues[i].x = value(0);
   };
 
   private createCardDOM(): any {
@@ -77,7 +82,10 @@ export default class Find extends React.Component<IFind, IState> {
           values={this.state.cardValues[i]}
           // 即時関数で呼び出さないといけないみたい
           onDragEnd={() => this.dragEndSwipe(i)}
-          onPoseComplete={() => this.props.showNextUser()}
+          onPoseComplete={() => {
+            this.props.showNextUser();
+            this.resetCardValue(i);
+          }}
         >
           <CardLikeInner>
             <LikeIcon />
