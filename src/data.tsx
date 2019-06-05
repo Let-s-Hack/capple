@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import userImage01 from 'images/users/user-image05.jpg';
-import userImage02 from 'images/users/user-image01.jpg';
+import userImage02 from 'images/users/user-image04.jpg';
 import userImage03 from 'images/users/user-image02.jpg';
 
 import animalImage from 'images/category/animal.jpg';

@@ -38,23 +38,20 @@ export default class Find extends React.Component<IFind, IState> {
   triggerDistance = 50;
   dragEndSwipe = (i: number) => {
     const x = this.state.cardValues[i].x.get();
-    console.log(x);
 
     if (x <= -this.triggerDistance) {
       // いいかも
       setTimeout(() => {
-        // this.execAction('isMatching');
         this.props.showNextUser();
-        console.log('swipe like');
-        
+        // カードの状態を初期化
+        this.state.cardValues[i].x = value(0);
       }, 280);
     } else if (this.triggerDistance <= x) {
       // いまいち
       setTimeout(() => {
-        // this.execAction('isUnLike');
         this.props.showNextUser();
-        console.log('swipe unlike');
-        
+        // カードの状態を初期化
+        this.state.cardValues[i].x = value(0);
       }, 280);
     }
   };

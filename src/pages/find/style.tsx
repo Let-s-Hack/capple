@@ -180,12 +180,12 @@ const PoseCardOuter = posed.div({
     x: 0,
     y: 0,
     transition: ({ from, to, velocity }: any) => {
-      if (from <= -50) { // 親のを参照する？
+      if (from <= -50) { // 親の値を参照する
         return {
           type: 'tween',
           ease: 'linear',
           from,
-          to: -window.innerWidth,
+          to: -window.innerWidth - 80,
           duration: 280
         };
       } else if (50 <= from) {
@@ -193,7 +193,7 @@ const PoseCardOuter = posed.div({
           type: 'tween',
           ease: 'linear',
           from,
-          to: window.innerWidth,
+          to: window.innerWidth + 80,
           duration: 280
         };
       }
