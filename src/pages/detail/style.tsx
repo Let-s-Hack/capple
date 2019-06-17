@@ -353,3 +353,18 @@ font-size: 14px;
 color: ${color.text};
 letter-spacing: 0.11px;
 `;
+
+const PoseButtonOuter = posed.div({
+  visible: {
+    opacity: 1,
+  },
+  hidden: {
+    opacity: 0,
+  },
+});
+
+export const ButtonOuter = styled(PoseButtonOuter)`
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+`;

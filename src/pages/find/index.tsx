@@ -2,11 +2,12 @@ import * as React from 'react';
 import {
   Container, Header, HeaderArrow, HeaderTitle, HeaderCard,
   CardGroup, CardOuter, CardInner, CardLikeInner, LikeIcon, LikeText, CardUnLikeInner, UnLikeIcon, UnLikeText,
-  ButtonGroup, Setting, Like, SuperLike, UnLike, Shop
+  ButtonGroup, Setting, Shop,
 } from './style';
 import Detail from '../detail';
 import Card from '../../components/card';
 import Matching from '../../components/matching';
+import JudgeButtonGroup from '../../components/judgeButtonGroup';
 import { value } from 'popmotion';
 
 interface IFind {
@@ -26,13 +27,6 @@ export default class Find extends React.Component<IFind, IState> {
   public state: IState = {
     refs: [],
     cardValues: [],
-  };
-
-  private execAction(actionKey: string): void {
-    let state = this.props;
-    state.users[state.userIndex][actionKey] = true;
-    this.state.refs[state.userIndex].hiddenNew();
-    this.props.updateState(state);
   };
 
   triggerDistance = 50;
@@ -120,7 +114,13 @@ export default class Find extends React.Component<IFind, IState> {
           style={this.props.style}
           updateState={this.props.updateState}
         />
-        <Detail userIndex={this.props.userIndex} user={currentUser} style={this.props.style} updateState={this.props.updateState} />
+        <Detail
+          userIndex={this.props.userIndex}
+          user={currentUser}
+          style={this.props.style}
+          updateState={this.props.updateState}
+          refs={this.state.refs}
+        />
         <Container isMatching={currentUser.isMatching} mobileHeight={this.props.style.mobileHeight}>
           <Header>
             <HeaderArrow />
@@ -133,9 +133,12 @@ export default class Find extends React.Component<IFind, IState> {
           <CardGroup>{this.createCardDOM()}</CardGroup>
           <ButtonGroup>
             <Setting />
-            <Like onClick={() => this.execAction('isMatching')} />
-            <SuperLike />
-            <UnLike onClick={() => this.execAction('isUnLike')} />
+            <JudgeButtonGroup
+              userIndex={this.props.userIndex}
+              user={this.props.users[this.props.userIndex]}
+              updateState={this.props.updateState}
+              refs={this.state.refs}
+            />
             <Shop />
           </ButtonGroup>
         </Container>

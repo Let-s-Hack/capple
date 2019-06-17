@@ -35,7 +35,10 @@ class App extends React.Component {
     let state = this.state;
 
     state.userIndex = 0;
-    state = state.users.map((user: any) => { return user.isUnLike = false; });
+    state = state.users.map((user: any) => {
+      user.isUnLike = false;
+      user.isDetail = false;
+    });
 
     this.updateState(state);
   }
