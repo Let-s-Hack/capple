@@ -4,13 +4,17 @@ import {
   ThumbnailList, Thumbnail, Introduction, IntroductionTitle, IntroductionText,
   CategoryGroup, Title, CategoryList, CategoryCard, CategoryImage, CategoryText,
   ProfileDetailGroup, ProfileDetail, ProfileDetailList, ProfileDetailTitle, ProfileDetailText,
+  ButtonOuter,
 } from './style';
+
+import JudgeButtonGroup from '../../components/judgeButtonGroup';
 
 interface IDetail {
   userIndex: number;
   user: any;
   style: any;
   updateState: (state: any) => void;
+  refs: any;
 };
 
 export default class Detail extends React.Component<IDetail> {
@@ -101,6 +105,14 @@ export default class Detail extends React.Component<IDetail> {
               </ProfileDetailList>
           </ProfileDetailGroup>
         </Profile>
+        <ButtonOuter>
+          <JudgeButtonGroup
+            userIndex={this.props.userIndex}
+            user={this.props.user}
+            updateState={this.props.updateState}
+            refs={this.props.refs}
+          />
+        </ButtonOuter>
       </Container>
     );
   }

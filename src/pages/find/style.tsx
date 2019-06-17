@@ -6,11 +6,10 @@ import { transform } from 'popmotion';
 import iconArrow from 'images/icons/arrow.svg';
 import iconCard from 'images/icons/card.svg';
 import iconLike from 'images/icons/like.svg';
-import iconSuperLike from 'images/icons/super-like.svg';
 import iconUnLike from 'images/icons/unlike.svg';
+import iconNew from 'images/icons/new.svg';
 import iconSetting from 'images/icons/setting.svg';
 import iconShop from 'images/icons/shop.svg';
-import iconNew from 'images/icons/new.svg';
 
 const { interpolate } = transform;
 
@@ -101,62 +100,6 @@ export const HeaderTitle = styled.h1`
   font-size: 16px;
   text-align: center;
   color: ${color.headingText};
-`;
-
-export const ButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-`;
-
-const PoseButton = posed.div({
-  pressable: true,
-  init: {
-    scale: 1,
-  },
-  press: {
-    scale: 1.1,
-  },
-});
-
-export const Like = styled(PoseButton)`
-  width: 69px;
-  height: 69px;
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  background: white url(${iconLike}) center 21px / 100% 28px no-repeat;
-`;
-
-export const SuperLike = styled.div`
-  width: 52px;
-  height: 52px;
-  margin: 0 14px;
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  background: white url(${iconSuperLike}) 1px 12px / 100% 27px no-repeat;
-`;
-
-export const UnLike = styled(PoseButton)`
-  width: 69px;
-  height: 69px;
-  border-radius: 50%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  background: white url(${iconUnLike}) 1px 20px / 100% 28px no-repeat;
-`;
-
-export const Setting = styled.div`
-  width: 44px;
-  height: 44px;
-  margin-right: 14px;
-  background: url(${iconSetting}) center / 100% 23px no-repeat;
-`;
-
-export const Shop = styled.div`
-  width: 44px;
-  height: 44px;
-  margin-left: 14px;
-  background: url(${iconShop}) center / 100% 25px no-repeat;
 `;
 
 export const CardGroup = styled.div`
@@ -495,4 +438,25 @@ export const Apeal = styled.p`
   > span > strong {
     color: ${color.accentText};
   }
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+`;
+
+export const Setting = styled.div`
+  width: 44px;
+  height: 44px;
+  margin-right: 14px;
+  background: url(${iconSetting}) center / 100% 23px no-repeat;
+`;
+
+export const Shop = styled.div`
+  width: 44px;
+  height: 44px;
+  margin-left: 14px;
+  background: url(${iconShop}) center / 100% 25px no-repeat;
 `;
