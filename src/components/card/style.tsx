@@ -1,22 +1,28 @@
 import styled from 'styled-components';
 import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
-import iconUnLike from 'images/icons/unlike.svg';
 import iconNew from 'images/icons/new.svg';
 
-const PoseContainer = posed.div({
-  unLike: {
-    left: '100vw',
-    transform: 'rotate(2deg)',
+const fade = {
+  fadeIn: {
+    opacity: 1,
     transition: {
-      duration: 150,
-      delay: 100,
-    }
+      delay: 300,
+      duration: 300,
+    },
   },
-  default: {
-    left: '0vw',
-    transform: 'rotate(0deg)',
-  }
+  fadeOut: {
+    opacity: 0,
+    transition: {
+      delay: 300,
+      duration: 300,
+    },
+  },
+};
+
+const PoseContainer = posed.div({
+  fadeIn: {},
+  fadeOut: {},
 });
 
 export const Container = styled(PoseContainer)`
@@ -30,68 +36,39 @@ export const Container = styled(PoseContainer)`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
   background: white;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 160px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.57));
-    border-radius: 0 0 16px 16px;
-  }
+  z-index: 98;
 `;
 
-const PoseCardUnLikeInner = posed.div({
-  unLike: {
-    opacity: 1,
+const PoseNew = posed.div({
+  drag: {
+    opacity: 0,
+    transition: {
+      delay: 80,
+    },
+  },
+  hiddenNew: {
+    opacity: 0,
     transition: {
       duration: 100,
     },
-    applyAtStart: {
-      display: 'flex',
+  },
+  fadeIn: {
+    opacity: 1,
+    transition: {
+      delay: 300,
+      duration: 300,
     },
   },
-  default: {
+  fadeOut: {
     opacity: 0,
-    display: 'none',
+    transition: {
+      delay: 300,
+      duration: 300,
+    },
   },
 });
 
-export const CardUnLikeInner = styled(PoseCardUnLikeInner)`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-  background: rgba(83, 102, 151, 0.68);
-  z-index: 110;
-`;
-
-export const UnLikeIcon = styled.div`
-  display: block;
-  width: 120px;
-  height: 120px;
-  margin-top: 98px;
-  border-radius: 50%;
-  background: white url(${iconUnLike}) 50% 50% / 50% no-repeat;
-`;
-
-export const UnLikeText = styled.p`
-  margin-top: 24px;
-  text-align: center;
-  font-size: 26px;
-  font-weight: bold;
-  color: white;
-
-  > span {
-    font-size: 21px;
-  }
-`;
-
-export const New = styled.div`
+export const New = styled(PoseNew)`
   position: absolute;
   top: -6px;
   right: -6px;
@@ -110,13 +87,24 @@ export const Image = styled.img`
   border-radius: 16px;
 `;
 
-export const Inner = styled.div`
-  display: flex;
+const PoseInner = posed.div(fade);
+
+export const Inner = styled(PoseInner)`
+  flex-direction: column;
   align-items: flex-end;
   z-index: 100;
+  background: red;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.57));
+  border-radius: 0 0 16px 16px;
 `;
 
 export const Profile = styled.div`
+  display: flex;
+`;
+
+export const TextGroup = styled.div`
+  display: flex;
+  flex-direction: column;
   flex: 0 0 auto;
   margin-left: 24px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

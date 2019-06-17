@@ -1,6 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
+import { transform } from 'popmotion';
+
 import iconArrow from 'images/icons/arrow.svg';
 import iconCard from 'images/icons/card.svg';
 import iconLike from 'images/icons/like.svg';
@@ -9,6 +11,8 @@ import iconUnLike from 'images/icons/unlike.svg';
 import iconSetting from 'images/icons/setting.svg';
 import iconShop from 'images/icons/shop.svg';
 import iconNew from 'images/icons/new.svg';
+
+const { interpolate } = transform;
 
 const fadeIn = keyframes`
   from {
@@ -45,6 +49,7 @@ export const Container = styled.div`
   overflow: hidden;
   transition: all 0.3s ease;
   filter: ${(props: IContainer) => props.isMatching ? 'blur(12px)' : 'none'};
+  background-image: linear-gradient(to bottom, white, #F6F6F8);
 
   &::before {
     content: '';
@@ -119,8 +124,8 @@ export const Like = styled(PoseButton)`
   width: 69px;
   height: 69px;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background: url(${iconLike}) center 21px / 100% 28px no-repeat;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background: white url(${iconLike}) center 21px / 100% 28px no-repeat;
 `;
 
 export const SuperLike = styled.div`
@@ -128,16 +133,16 @@ export const SuperLike = styled.div`
   height: 52px;
   margin: 0 14px;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background: url(${iconSuperLike}) 1px 12px / 100% 27px no-repeat;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background: white url(${iconSuperLike}) 1px 12px / 100% 27px no-repeat;
 `;
 
 export const UnLike = styled(PoseButton)`
   width: 69px;
   height: 69px;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background: url(${iconUnLike}) 1px 20px / 100% 28px no-repeat;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  background: white url(${iconUnLike}) 1px 20px / 100% 28px no-repeat;
 `;
 
 export const Setting = styled.div`
@@ -163,24 +168,209 @@ export const CardGroup = styled.div`
   margin: 32px 16px 10px 16px;
 `;
 
-const PoseCardUnLikeInner = posed.div({
+const PoseCardOuter = posed.div({
+  draggable: true,
+  passive: {
+    rotate: ['x', interpolate(
+      [0, 25, 50],
+      [0, 0, 1]
+    ), true],
+  },
+  dragEnd: {
+    x: 0,
+    y: 0,
+    transition: ({ from, to, velocity }: any) => {
+      if (from <= -50) { // 親の値を参照する
+        return {
+          type: 'tween',
+          ease: 'linear',
+          from,
+          to: -window.innerWidth - 80,
+          duration: 280
+        };
+      } else if (50 <= from) {
+        return {
+          type: 'tween',
+          ease: 'linear',
+          from,
+          to: window.innerWidth + 80,
+          duration: 280
+        };
+      }
+
+      return {
+        type: 'physics',
+        friction: 0.98,
+        springStrength: 1000,
+        duration: ['x', interpolate(
+          [0, 50, 100],
+          [0, 0, 1000]
+        ), true],
+      }
+    }
+  },
   unLike: {
+    x: window.innerWidth,
+    transition: {
+      duration: 150,
+      delay: 100,
+    }
+  },
+  default: {
+    x: 0,
+    y: 0,
+  },
+});
+
+export const CardOuter = styled(PoseCardOuter)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  z-index: 98;
+`;
+
+const PoseCardInner = posed.div({
+  passive: {
+    rotate: ['x', interpolate(
+      [-window.innerWidth, 0, window.innerWidth],
+      [8, 0, -8],
+    ), true],
+  },
+  unLike: {
+    rotate: 2,
+    transition: {
+      duration: 150,
+      delay: 100,
+    }
+  },
+  default: {
+    rotate: 0,
+  }
+});
+
+export const CardInner = styled(PoseCardInner)`
+  width: 100%;
+  height: 100%;
+`;
+
+const PoseCardLikeInner = posed.div({
+  drag: {
+    applyAtStart: {
+      display: 'flex',
+    },
+    x: 0,
+    transition: {
+      delay: 80,
+      duration: 0,
+    },
+  },
+  dragEnd: {
+    applyAtStart: {
+      display: 'none',
+    },
+  },
+  passive: {
+    opacity: ['x', interpolate(
+      [0, -25, -50],
+      [0, 0, 1]
+    ), true],
+    rotate: ['x', interpolate(
+      [-window.innerWidth, 0, window.innerWidth],
+      [8, 0, -8],
+    ), true],
+  },
+  like: {
     opacity: 1,
     transition: {
       duration: 100,
     },
+  },
+  default: {
+    opacity: 0,
+    x: -window.innerWidth,
+  },
+});
+
+export const CardLikeInner = styled(PoseCardLikeInner)`
+  position: absolute;
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: rgba(237, 82, 146, 0.68);
+`;
+
+export const LikeIcon = styled.div`
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin-top: 98px;
+  border-radius: 50%;
+  background: white url(${iconLike}) 50% 50% / 50% no-repeat;
+`;
+
+export const LikeText = styled.p`
+  margin-top: 24px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+
+  > span {
+    font-size: 21px;
+  }
+`;
+
+const PoseCardUnLikeInner = posed.div({
+  drag: {
     applyAtStart: {
       display: 'flex',
+    },
+    x: 0,
+    transition: {
+      delay: 80,
+      duration: 0,
+    },
+  },
+  dragEnd: {
+    applyAtStart: {
+      display: 'none',
+    },
+  },
+  passive: {
+    opacity: ['x', interpolate(
+      [0, 25, 50],
+      [0, 0, 1]
+    ), true],
+    rotate: ['x', interpolate(
+      [-window.innerWidth, 0, window.innerWidth],
+      [8, 0, -8],
+    ), true],
+  },
+  unLike: {
+    applyAtStart: {
+      display: 'flex',
+      x: 0,
+    },
+    opacity: 1,
+    transition: {
+      duration: 100,
     },
   },
   default: {
     opacity: 0,
-    display: 'none',
+    x: window.innerWidth,
   },
 });
 
 export const CardUnLikeInner = styled(PoseCardUnLikeInner)`
   position: absolute;
+  z-index: 110;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -188,7 +378,6 @@ export const CardUnLikeInner = styled(PoseCardUnLikeInner)`
   height: 100%;
   border-radius: 16px;
   background: rgba(83, 102, 151, 0.68);
-  z-index: 110;
 `;
 
 export const UnLikeIcon = styled.div`

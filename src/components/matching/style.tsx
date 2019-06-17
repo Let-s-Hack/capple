@@ -100,7 +100,7 @@ export const MyImage = styled(PoseMyImage)`
   position: relative;
   z-index: 1200;
   flex: 0 0 112px;
-  max-width: 112px;
+  width: 112px;
   height: 112px;
   object-fit: cover;
   border-radius: 50%;
@@ -133,7 +133,7 @@ export const PartnerImage = styled(PosePartnerImage)`
   position: relative;
   z-index: 1200;
   flex: 0 0 112px;
-  max-width: 112px;
+  width: 112px;
   height: 112px;
   object-fit: cover;
   border-radius: 50%;
