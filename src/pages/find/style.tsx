@@ -104,6 +104,7 @@ export const HeaderTitle = styled.h1`
 
 export const CardGroup = styled.div`
   position: relative;
+  z-index: 102;
   flex: 1;
   display: flex;
   flex-direction: column;

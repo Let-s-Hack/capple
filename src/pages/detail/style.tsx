@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
-import iconClose from 'images/icons/close.svg';
+// import iconClose from 'images/icons/close.svg';
 import iconConfirmation from 'images/icons/confirmation.svg';
-import iconOption from 'images/icons/option.svg';
+// import iconOption from 'images/icons/option.svg';
 import iconNew from 'images/icons/new.svg';
 
 const PoseContainer = posed.div({
@@ -40,6 +40,8 @@ left: 0;
 display: flex;
 flex-direction: column;
 width: 100vw;
+height: ${window.innerHeight}px;
+overflow-y: auto;
 min-height: ${(props: IContainer) => props.mobileHeight}px;
 z-index: 1000;
 
@@ -62,13 +64,14 @@ const PoseImage = posed.div({
     y: 0,
     // 一見無駄な書き方に見えるが、アニメーション前後で同じ形式じゃないといけない
     width: 'calc(100% - 0px)',
-    minHeight: '0px',
+    minHeight: '360px',
     borderRadius: 0,
     transition: {
       ease: [0.08, 0.69, 0.2, 0.99],
       duration: 300,
     },
     applyAtStart: {
+      display: 'block',
       opacity: 1,
     },
   },
@@ -82,13 +85,13 @@ const PoseImage = posed.div({
       duration: 300,
     },
     applyAtEnd: {
+      display: 'none',
       opacity: 0,
     },
   }
 });
 
 export const Image = styled(PoseImage)`
-  position: relative;
   width: 100%;
   height: 360px;
   min-height: 360px;
@@ -110,38 +113,94 @@ const PoseHeader = posed.div({
     applyAtStart: {
       opacity: 0,
     },
-  }
+  },
+  visibleHeaderInner: {
+    background: 'rgba(255, 255, 255, 1)',
+  },
+  hiddenHeaderInner: {
+    background: 'rgba(255, 255, 255, 0)',
+  },
 });
 
 export const Header = styled(PoseHeader)`
-  position: absolute;
+  position: fixed;
+  z-index: 101;
   top: 0;
   left: 0;
-  z-index: 10;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 64px;
+  padding: 0 18px;
+  box-sizing: border-box;
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.00) 100%);
 `;
 
 export const CloseButton = styled.div`
-position: absolute;
-top: 32px;
-left: 18px;
 z-index: 11;
 width: 18px;
 height: 18px;
-background: url(${iconClose}) center / contain no-repeat;
+`;
+
+export const CloseButtonSvg = styled.svg`
+  g {
+    stroke: red;
+  }
 `;
 
 export const OptionButton = styled.div`
-position: absolute;
-top: 32px;
-right: 18px;
 z-index: 11;
 width: 20px;
 height: 18px;
-background: url(${iconOption}) center / contain no-repeat;
+`;
+
+export const OptionButtonSvg = styled.svg`
+  g {
+    fill: red;
+  }
+`;
+
+const PoseHeaderInner = posed.div({
+  visibleHeaderInner: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 400,
+    },
+  },
+  hiddenHeaderInner: {
+    opacity: 0,
+    y: 16,
+    transition: {
+      duration: 400,
+    },
+  },
+});
+
+export const HeaderInner = styled(PoseHeaderInner)`
+  display: flex;
+  align-items: center;
+`;
+
+export const HeaderImage = styled.div`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+`;
+
+export const HeaderTitle = styled.h2`
+  margin-left: 8px;
+  color: ${color.text};
+  font-size: 16px;
+  font-weight: bold;
 `;
 
 const PoseProfile = posed.div({
