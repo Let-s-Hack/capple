@@ -29,6 +29,9 @@ export default class Detail extends React.Component<IDetail, IState> {
     node: React.createRef(),
   };
 
+  headerScrollTopPosition = 340;
+  frameTime = 100;
+
   private changeImage(index: number): void {
     let user: any = this.props.user;
 
@@ -47,16 +50,25 @@ export default class Detail extends React.Component<IDetail, IState> {
   }
 
   public render() {
+    let scrollEventFlag = true;
+
     const handleScroll = () => {
-      if (340 < this.state.node.current.scrollTop) {
-        this.setState({
-          isShowHeader: true,
-        })
-      } else {
-        this.setState({
-          isShowHeader: false,
-        })
-      }
+      if (!scrollEventFlag) return;
+      scrollEventFlag = false;
+      
+      setTimeout(() => {
+        if (this.headerScrollTopPosition < this.state.node.current.scrollTop) {
+          this.setState({
+            isShowHeader: true,
+          })
+        } else {
+          this.setState({
+            isShowHeader: false,
+          })
+        }
+
+        scrollEventFlag = true;
+      }, this.frameTime);
     };
     
     return (

@@ -42,6 +42,7 @@ flex-direction: column;
 width: 100vw;
 height: ${window.innerHeight}px;
 overflow-y: auto;
+-webkit-overflow-scrolling: touch;
 min-height: ${(props: IContainer) => props.mobileHeight}px;
 z-index: 1000;
 
@@ -355,6 +356,8 @@ display: flex;
 width: 100vw;
 height: 152px;
 overflow: auto;
+-webkit-overflow-scrolling: touch;
+transform: translateZ(0px);
 margin: 24px 0 0 -16px;
 list-style: none;
 `;
