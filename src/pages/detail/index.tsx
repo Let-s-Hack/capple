@@ -1,6 +1,9 @@
 import * as React from 'react';
 import {
-  Container, Image, Header, CloseButton, OptionButton, Profile, ProfileMain, MainTextGroup, MainTitle, New, Text, Confirmation,
+  Container, Image, Header,
+  CloseButton, CloseButtonG, OptionButton, OptionButtonG,
+  HeaderInner, HeaderImage, HeaderTitle, 
+  Profile, ProfileMain, MainTextGroup, MainTitle, New, Text, Confirmation,
   ThumbnailList, Thumbnail, Introduction, IntroductionTitle, IntroductionText,
   CategoryGroup, Title, CategoryList, CategoryCard, CategoryImage, CategoryText,
   ProfileDetailGroup, ProfileDetail, ProfileDetailList, ProfileDetailTitle, ProfileDetailText,
@@ -17,7 +20,20 @@ interface IDetail {
   refs: any;
 };
 
-export default class Detail extends React.Component<IDetail> {
+interface IState {
+  isShowHeader: boolean;
+  node: any;
+};
+
+export default class Detail extends React.Component<IDetail, IState> {
+  public state: IState = {
+    isShowHeader: false,
+    node: React.createRef(),
+  };
+
+  headerScrollTopPosition = 340;
+  frameTime = 100;
+
   private changeImage(index: number): void {
     let user: any = this.props.user;
 
@@ -36,11 +52,54 @@ export default class Detail extends React.Component<IDetail> {
   }
 
   public render() {
+    let scrollEventFlag = true;
+
+    const handleScroll = () => {
+      if (!scrollEventFlag) return;
+      scrollEventFlag = false;
+      
+      setTimeout(() => {
+        if (this.headerScrollTopPosition < this.state.node.current.scrollTop) {
+          this.setState({
+            isShowHeader: true,
+          })
+        } else {
+          this.setState({
+            isShowHeader: false,
+          })
+        }
+
+        scrollEventFlag = true;
+      }, this.frameTime);
+    };
+    
     return (
-      <Container pose={this.props.user.isDetail ? 'visible' : 'hidden'} mobileHeight={this.props.style.mobileHeight}>
-        <Header>
-          <CloseButton onClick={() => this.hideDetail()} />
-          <OptionButton />
+      <Container
+        pose={this.props.user.isDetail ? 'visible' : 'hidden'}
+        mobileHeight={this.props.style.mobileHeight}
+        onScroll={handleScroll}
+        ref={this.state.node}
+      >
+        <Header pose={this.state.isShowHeader ? 'visibleHeader' : 'hiddenHeader'}>
+          <CloseButton>
+            <svg
+              onClick={() => this.hideDetail()} 
+              width="19" height="19" viewBox="0 0 19 19" xmlns="http://www.w3.org/2000/svg"
+            >
+              <CloseButtonG stroke="#fff" strokeWidth="2" fill="none"><path d="M1.5 1.5l16.329 16.329M17.5 1.5l-16.329 16.329"/></CloseButtonG>
+            </svg>
+          </CloseButton>
+          <HeaderInner>
+            <HeaderImage>
+              <img src={this.props.user.mainImage} alt="プロフィール画像"/>
+            </HeaderImage>
+            <HeaderTitle>{this.props.user.name}</HeaderTitle>
+          </HeaderInner>
+          <OptionButton>
+            <svg width="20" height="4" viewBox="0 0 20 4" xmlns="http://www.w3.org/2000/svg">
+              <OptionButtonG transform="translate(-337 -39) translate(337 39)" fill="#fff"><circle cx="2" cy="2" r="2"/><circle cx="10" cy="2" r="2"/><circle cx="18" cy="2" r="2"/></OptionButtonG>
+            </svg>
+          </OptionButton>
         </Header>
         <Image mobileHeight={this.props.style.mobileHeight}>
           <img src={this.props.user.mainImage} alt="プロフィール画像"/>
