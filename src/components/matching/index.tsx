@@ -61,7 +61,7 @@ export default class Matching extends React.Component<IMatching> {
     let particleId = 0;
 
     return (
-      <Container pose={this.props.user.isMatching ? 'visible' : 'hidden'} mobileHeight={this.props.style.mobileHeight}>
+      <Container pose={this.props.user.isMatching ? 'visible' : 'hidden'}>
         <MatchingResult>
           <Title />
           <ImageGroup>

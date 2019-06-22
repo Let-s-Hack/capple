@@ -27,10 +27,6 @@ const PoseContainer = posed.div({
   },
 });
 
-interface IContainer {
-  mobileHeight: number;
-};
-
 export const Container = styled(PoseContainer)`
 position: absolute;
 top: 0;
@@ -41,7 +37,7 @@ width: 100vw;
 height: ${window.innerHeight}px;
 overflow-y: auto;
 -webkit-overflow-scrolling: touch;
-min-height: ${(props: IContainer) => props.mobileHeight}px;
+height: inherit;
 z-index: 1000;
 
 &::before {
@@ -50,13 +46,9 @@ z-index: 1000;
   top: 0;
   left: 0;
   width: 100vw;
-  min-height: ${(props: IContainer) => props.mobileHeight}px;
+  height: inherit;
 }
 `;
-
-interface IImage {
-  mobileHeight: number;
-};
 
 const PoseImage = posed.div({
   visible: {
@@ -77,7 +69,7 @@ const PoseImage = posed.div({
   hidden: {
     y: 88,
     width: 'calc(100% - 32px)',
-    minHeight: (props: IImage) => props.mobileHeight - 198 + 'px',
+    minHeight: () => window.innerHeight - 198 + 'px',
     borderRadius: 16,
     transition: {
       ease: [0.08, 0.69, 0.2, 0.99],

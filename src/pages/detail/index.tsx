@@ -76,7 +76,6 @@ export default class Detail extends React.Component<IDetail, IState> {
     return (
       <Container
         pose={this.props.user.isDetail ? 'visible' : 'hidden'}
-        mobileHeight={this.props.style.mobileHeight}
         onScroll={handleScroll}
         ref={this.state.node}
       >
@@ -101,7 +100,7 @@ export default class Detail extends React.Component<IDetail, IState> {
             </svg>
           </OptionButton>
         </Header>
-        <Image mobileHeight={this.props.style.mobileHeight}>
+        <Image>
           <img src={this.props.user.mainImage} alt="プロフィール画像"/>
         </Image>
         <Profile>

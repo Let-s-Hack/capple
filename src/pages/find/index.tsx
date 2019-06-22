@@ -121,7 +121,7 @@ export default class Find extends React.Component<IFind, IState> {
           updateState={this.props.updateState}
           refs={this.state.refs}
         />
-        <Container isMatching={currentUser.isMatching} mobileHeight={this.props.style.mobileHeight}>
+        <Container isMatching={currentUser.isMatching}>
           <Header>
             <HeaderArrow />
             <HeaderTitle>アウトドアが好き</HeaderTitle>
