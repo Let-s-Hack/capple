@@ -1,8 +1,12 @@
 import * as React from 'react';
 
-import userImage01 from 'images/users/user-image05.jpg';
-import userImage02 from 'images/users/user-image04.jpg';
-import userImage03 from 'images/users/user-image02.jpg';
+import userImage10 from 'images/users/user-image10.jpg';
+import userImage11 from 'images/users/user-image11.jpg';
+import userImage20 from 'images/users/user-image20.jpg';
+import userImage21 from 'images/users/user-image21.jpg';
+import userImage30 from 'images/users/user-image30.jpg';
+import userImage31 from 'images/users/user-image31.jpg';
+import userImage32 from 'images/users/user-image32.jpg';
 
 import animalImage from 'images/category/animal.jpg';
 import bookImage from 'images/category/book.jpg';
@@ -23,17 +27,16 @@ export default [
     isLike: false,
     isUnLike: false,
     isMatching: false,
-    name: "あざらし",
+    name: "アザラシ",
     age: 23,
-    place: "神奈川",
-    mainImage: userImage01,
+    place: "オホーツク海",
+    mainImage: userImage10,
     prevIndex: 0,
-    appeal: <span><strong>美容関係</strong>の仕事をしています</span>,
+    appeal: <span><strong>海のアイドル</strong>の仕事をしています</span>,
     introduction: <span>動物園に会いにきてください！待ってます。<br/>よろしくおねがいします！</span>,
     thumbnails: [
-      { image: userImage01, isActive: true },
-      { image: userImage02, isActive: false },
-      { image: userImage03, isActive: false },
+      { image: userImage10, isActive: true },
+      { image: userImage11, isActive: false },
     ],
     category: [
       { image: animalImage, text: '動物好き'},
@@ -48,7 +51,7 @@ export default [
       { image: travelImage, text: '旅行好き'},
     ],
     profile: [
-      { title: '出身地', text: '広島'},
+      { title: '出身地', text: 'オホーツク海'},
       { title: '血液型', text: 'A'},
       { title: '体型', text: '普通'},
       { title: '学歴', text: '大学卒'},
@@ -70,14 +73,13 @@ export default [
     name: "ゴリラ",
     age: 25,
     place: "東京都",
-    mainImage: userImage02,
+    mainImage: userImage20,
     prevIndex: 0,
     appeal: <span><strong>動物園</strong>の仕事をしています</span>,
     introduction: <span>動物園に会いにきてください！待ってます。<br/>よろしくおねがいします！</span>,
     thumbnails: [
-      { image: userImage02, isActive: true },
-      { image: userImage01, isActive: false },
-      { image: userImage03, isActive: false }
+      { image: userImage20, isActive: true },
+      { image: userImage21, isActive: false },
     ],
     category: [
       { image: animalImage, text: '動物好き'},
@@ -95,7 +97,7 @@ export default [
       { title: '休日', text: '土日'},
       { title: '煙草', text: '吸わない'},
       { title: 'お酒', text: '全く飲まない'},
-      { title: '身長', text: '147cm'},
+      { title: '身長', text: '157cm'},
       { title: '一緒に住んでいる人', text: '一人暮らし'},
       { title: '出会うまでの希望', text: '気が合えば会いたい'},
     ]
@@ -107,17 +109,17 @@ export default [
     isLike: false,
     isUnLike: false,
     isMatching: false,
-    name: "可愛い子",
+    name: "ねこすけ",
     age: 21,
     place: "東京都",
-    mainImage: userImage03,
+    mainImage: userImage30,
     prevIndex: 0,
-    appeal: <span><strong>美容関係</strong>の仕事をしています</span>,
-    introduction: <span>動物園に会いにきてください！待ってます。<br/>よろしくおねがいします！</span>,
+    appeal: <span><strong>ねこ</strong>の仕事をしています</span>,
+    introduction: <span>ペットショップで待ってるよ〜😸<br/>好きな食べ物はチャオチュール！<br /><br />マタタビの差し入れ待ってるにゃ</span>,
     thumbnails: [
-      { image: userImage03, isActive: true },
-      { image: userImage02, isActive: false },
-      { image: userImage01, isActive: false }
+      { image: userImage30, isActive: true },
+      { image: userImage31, isActive: false },
+      { image: userImage32, isActive: false }
     ],
     category: [
       { image: animalImage, text: '動物好き'},
@@ -136,7 +138,7 @@ export default [
       { title: '休日', text: '土日'},
       { title: '煙草', text: '吸わない'},
       { title: 'お酒', text: 'よく飲む'},
-      { title: '身長', text: '160cm'},
+      { title: '身長', text: '60cm'},
       { title: '一緒に住んでいる人', text: '実家暮らし'},
       { title: '出会うまでの希望', text: '気が合えば会いたい'},
     ]
