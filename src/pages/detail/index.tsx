@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {
-  Container, Image, Header, CloseButton, CloseButtonSvg, OptionButton, OptionButtonSvg, HeaderInner, HeaderImage, HeaderTitle, 
+  Container, Image, Header,
+  CloseButton, CloseButtonG, OptionButton, OptionButtonG,
+  HeaderInner, HeaderImage, HeaderTitle, 
   Profile, ProfileMain, MainTextGroup, MainTitle, New, Text, Confirmation,
   ThumbnailList, Thumbnail, Introduction, IntroductionTitle, IntroductionText,
   CategoryGroup, Title, CategoryList, CategoryCard, CategoryImage, CategoryText,
@@ -78,15 +80,14 @@ export default class Detail extends React.Component<IDetail, IState> {
         onScroll={handleScroll}
         ref={this.state.node}
       >
-        <Header pose={this.state.isShowHeader ? 'visibleHeaderInner' : 'hiddenHeaderInner'}>
+        <Header pose={this.state.isShowHeader ? 'visibleHeader' : 'hiddenHeader'}>
           <CloseButton>
-            <CloseButtonSvg
+            <svg
               onClick={() => this.hideDetail()} 
               width="19" height="19" viewBox="0 0 19 19" xmlns="http://www.w3.org/2000/svg"
             >
-              <title>Group 4</title>
-              <g stroke="#fff" strokeWidth="2" fill="none"><path d="M1.5 1.5l16.329 16.329M17.5 1.5l-16.329 16.329"/></g>
-            </CloseButtonSvg>
+              <CloseButtonG stroke="#fff" strokeWidth="2" fill="none"><path d="M1.5 1.5l16.329 16.329M17.5 1.5l-16.329 16.329"/></CloseButtonG>
+            </svg>
           </CloseButton>
           <HeaderInner>
             <HeaderImage>
@@ -95,7 +96,9 @@ export default class Detail extends React.Component<IDetail, IState> {
             <HeaderTitle>{this.props.user.name}</HeaderTitle>
           </HeaderInner>
           <OptionButton>
-            <OptionButtonSvg width="20" height="4" viewBox="0 0 20 4" xmlns="http://www.w3.org/2000/svg"><title>option</title><g transform="translate(-337 -39) translate(337 39)" fill="#fff"><circle cx="2" cy="2" r="2"/><circle cx="10" cy="2" r="2"/><circle cx="18" cy="2" r="2"/></g></OptionButtonSvg>
+            <svg width="20" height="4" viewBox="0 0 20 4" xmlns="http://www.w3.org/2000/svg">
+              <OptionButtonG transform="translate(-337 -39) translate(337 39)" fill="#fff"><circle cx="2" cy="2" r="2"/><circle cx="10" cy="2" r="2"/><circle cx="18" cy="2" r="2"/></OptionButtonG>
+            </svg>
           </OptionButton>
         </Header>
         <Image mobileHeight={this.props.style.mobileHeight}>

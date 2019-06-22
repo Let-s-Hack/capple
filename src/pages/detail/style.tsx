@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import posed from 'react-pose';
 import { color } from '../../assets/stylesheets/variables';
-// import iconClose from 'images/icons/close.svg';
 import iconConfirmation from 'images/icons/confirmation.svg';
-// import iconOption from 'images/icons/option.svg';
 import iconNew from 'images/icons/new.svg';
 
 const PoseContainer = posed.div({
@@ -115,10 +113,10 @@ const PoseHeader = posed.div({
       opacity: 0,
     },
   },
-  visibleHeaderInner: {
+  visibleHeader: {
     background: 'rgba(255, 255, 255, 1)',
   },
-  hiddenHeaderInner: {
+  hiddenHeader: {
     background: 'rgba(255, 255, 255, 0)',
   },
 });
@@ -144,11 +142,14 @@ width: 18px;
 height: 18px;
 `;
 
-export const CloseButtonSvg = styled.svg`
-  g {
-    stroke: red;
-  }
-`;
+export const CloseButtonG = posed.g({
+  visibleHeader: {
+    stroke: '#A3A7AE',
+  },
+  hiddenHeader: {
+    stroke: '#FFFFFF',
+  },
+});
 
 export const OptionButton = styled.div`
 z-index: 11;
@@ -156,21 +157,24 @@ width: 20px;
 height: 18px;
 `;
 
-export const OptionButtonSvg = styled.svg`
-  g {
-    fill: red;
-  }
-`;
+export const OptionButtonG = posed.g({
+  visibleHeader: {
+    fill: '#A3A7AE',
+  },
+  hiddenHeader: {
+    fill: '#FFFFFF',
+  },
+});
 
 const PoseHeaderInner = posed.div({
-  visibleHeaderInner: {
+  visibleHeader: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 400,
     },
   },
-  hiddenHeaderInner: {
+  hiddenHeader: {
     opacity: 0,
     y: 16,
     transition: {
