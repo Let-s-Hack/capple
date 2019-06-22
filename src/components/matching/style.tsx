@@ -13,10 +13,6 @@ const PoseDefault = {
   },
 };
 
-interface IContainer {
-  mobileHeight: number;
-};
-
 const PoseContainer = posed.div({
   visible: {
     opacity: 1,
@@ -39,7 +35,7 @@ export const Container = styled(PoseContainer)`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  min-height: ${(props: IContainer) => props.mobileHeight}px;
+  height: inherit;
   z-index: 1100;
 
   &::before {

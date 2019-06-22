@@ -10,9 +10,6 @@ class App extends React.Component {
   public state: any = {
     userIndex: 0,
     users: users,
-    style: {
-      mobileHeight: window.innerHeight
-    }
   };
 
   private updateState(state: any): void {
@@ -44,17 +41,24 @@ class App extends React.Component {
   }
 
   public render() {
+    let mobileHeight = window.innerHeight;
+
     // ステータスバーを除外した高さをリサイズのたびに計算
     let timeoutId: any;
     window.addEventListener('resize', () => {
         clearTimeout(timeoutId);
 
         timeoutId = setTimeout(() => {
-          this.updateState({ style: { mobileHeight: window.innerHeight } });
+          mobileHeight = window.innerHeight;
         }, 500);
     });
 
+    const style = {
+      height: mobileHeight,
+    };
+
     return (
+      <div style={style}>
         <BrowserRouter>
           <Switch>
             {/* exact は完全マッチ時のみ表示させる。条件が厳しくなる。 */}
@@ -70,6 +74,7 @@ class App extends React.Component {
             } />
           </Switch>
         </BrowserRouter>
+      </div>
     );
   }
 }
