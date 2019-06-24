@@ -15,7 +15,6 @@ import JudgeButtonGroup from '../../components/judgeButtonGroup';
 interface IDetail {
   userIndex: number;
   user: any;
-  style: any;
   updateState: (state: any) => void;
   refs: any;
 };

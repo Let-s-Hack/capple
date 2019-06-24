@@ -67,7 +67,6 @@ class App extends React.Component {
               <Find
                 userIndex={this.state.userIndex}
                 users={this.state.users}
-                style={this.state.style}
                 updateState={this.updateState.bind(this)}
                 showNextUser={this.showNextUser.bind(this)}
               />

@@ -7,7 +7,6 @@ import {
 
 interface IMatching {
   user: any;
-  style: any;
   updateState: (state: any) => void;
 };
 
