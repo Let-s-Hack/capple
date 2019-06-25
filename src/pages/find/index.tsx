@@ -13,7 +13,6 @@ import { value } from 'popmotion';
 interface IFind {
   userIndex: number;
   users: any;
-  style: any;
   updateState: (state: any) => void;
   showNextUser: () => void;
 };
@@ -111,13 +110,11 @@ export default class Find extends React.Component<IFind, IState> {
       <React.Fragment>
         <Matching
           user={currentUser}
-          style={this.props.style}
           updateState={this.props.updateState}
         />
         <Detail
           userIndex={this.props.userIndex}
           user={currentUser}
-          style={this.props.style}
           updateState={this.props.updateState}
           refs={this.state.refs}
         />
