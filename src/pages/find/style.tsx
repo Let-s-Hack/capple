@@ -223,6 +223,10 @@ const PoseCardLikeInner = posed.div({
       [-window.innerWidth, 0, window.innerWidth],
       [8, 0, -8],
     ), true],
+    zIndex: ['x', interpolate(
+      [0, -25, -26],
+      [0 , -1, 110],
+    ), true],
   },
   like: {
     opacity: 1,
@@ -293,6 +297,10 @@ const PoseCardUnLikeInner = posed.div({
     rotate: ['x', interpolate(
       [-window.innerWidth, 0, window.innerWidth],
       [8, 0, -8],
+    ), true],
+    zIndex: ['x', interpolate(
+      [0, 25, 26],
+      [0 , -1, 110],
     ), true],
   },
   unLike: {
