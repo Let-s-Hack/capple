@@ -30,18 +30,26 @@ export default class Detail extends React.Component<IDetail, IState> {
     node: React.createRef(),
   };
 
-  timeoutId: any;
+  timeoutDetailId: any;
+  timeoutUnLikeId: any;
 
   componentDidUpdate() {
-    const { isUnLike } = this.props.user;
+    const { isUnLike, isDetail } = this.props.user;
 
     // 詳細画面から戻るときだけ呼ぶ
+    if (!isDetail) {
+      // 連続で呼ばれるのを防ぐ
+      clearTimeout(this.timeoutDetailId);
+      this.timeoutDetailId = setTimeout(() => {
+        this.state.node.current.scrollTop = 0;
+      }, 300);
+    }
+
+    // いまいちボタンが押されたときだけ呼ぶ
     if (isUnLike) {
       // 連続で呼ばれるのを防ぐ
-      clearTimeout(this.timeoutId);
-      this.timeoutId = setTimeout(() => {
-        console.log('called');
-        console.log(this.state.node.current.scrollTop);
+      clearTimeout(this.timeoutUnLikeId);
+      this.timeoutUnLikeId = setTimeout(() => {
         this.state.node.current.scrollTop = 0;
       }, 300);
     }
