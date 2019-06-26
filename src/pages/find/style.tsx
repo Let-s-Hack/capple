@@ -115,8 +115,8 @@ const PoseCardOuter = posed.div({
   draggable: true,
   passive: {
     rotate: ['x', interpolate(
-      [0, 25, 50],
-      [0, 0, 1]
+      [-window.innerWidth, 0, window.innerWidth],
+      [8, 0, -8],
     ), true],
   },
   dragEnd: {
@@ -154,6 +154,7 @@ const PoseCardOuter = posed.div({
   },
   unLike: {
     x: window.innerWidth,
+    rotate: 2,
     transition: {
       duration: 150,
       delay: 100,
@@ -175,22 +176,13 @@ export const CardOuter = styled(PoseCardOuter)`
 `;
 
 const PoseCardInner = posed.div({
-  passive: {
-    rotate: ['x', interpolate(
-      [-window.innerWidth, 0, window.innerWidth],
-      [8, 0, -8],
-    ), true],
-  },
   unLike: {
-    rotate: 2,
     transition: {
       duration: 150,
       delay: 100,
     }
   },
-  default: {
-    rotate: 0,
-  }
+  default: {}
 });
 
 export const CardInner = styled(PoseCardInner)`
@@ -200,28 +192,17 @@ export const CardInner = styled(PoseCardInner)`
 
 const PoseCardLikeInner = posed.div({
   drag: {
-    applyAtStart: {
-      display: 'flex',
-    },
     x: 0,
     transition: {
       delay: 80,
       duration: 0,
     },
   },
-  dragEnd: {
-    applyAtStart: {
-      display: 'none',
-    },
-  },
+  dragEnd: {},
   passive: {
     opacity: ['x', interpolate(
       [0, -25, -50],
       [0, 0, 1]
-    ), true],
-    rotate: ['x', interpolate(
-      [-window.innerWidth, 0, window.innerWidth],
-      [8, 0, -8],
     ), true],
   },
   like: {
@@ -271,28 +252,17 @@ export const LikeText = styled.p`
 
 const PoseCardUnLikeInner = posed.div({
   drag: {
-    applyAtStart: {
-      display: 'flex',
-    },
     x: 0,
     transition: {
       delay: 80,
       duration: 0,
     },
   },
-  dragEnd: {
-    applyAtStart: {
-      display: 'none',
-    },
-  },
+  dragEnd: {},
   passive: {
     opacity: ['x', interpolate(
       [0, 25, 50],
       [0, 0, 1]
-    ), true],
-    rotate: ['x', interpolate(
-      [-window.innerWidth, 0, window.innerWidth],
-      [8, 0, -8],
     ), true],
   },
   unLike: {
