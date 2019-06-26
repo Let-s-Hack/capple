@@ -43,7 +43,7 @@ const PoseNew = posed.div({
   drag: {
     opacity: 0,
     transition: {
-      delay: 80,
+      delay: 120,
     },
   },
   hiddenNew: {

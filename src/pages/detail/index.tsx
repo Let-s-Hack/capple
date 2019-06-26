@@ -15,7 +15,6 @@ import JudgeButtonGroup from '../../components/judgeButtonGroup';
 interface IDetail {
   userIndex: number;
   user: any;
-  style: any;
   updateState: (state: any) => void;
   refs: any;
 };
@@ -30,6 +29,23 @@ export default class Detail extends React.Component<IDetail, IState> {
     isShowHeader: false,
     node: React.createRef(),
   };
+
+  timeoutId: any;
+
+  componentDidUpdate() {
+    const { isUnLike } = this.props.user;
+
+    // 詳細画面から戻るときだけ呼ぶ
+    if (isUnLike) {
+      // 連続で呼ばれるのを防ぐ
+      clearTimeout(this.timeoutId);
+      this.timeoutId = setTimeout(() => {
+        console.log('called');
+        console.log(this.state.node.current.scrollTop);
+        this.state.node.current.scrollTop = 0;
+      }, 300);
+    }
+  }
 
   headerScrollTopPosition = 340;
   frameTime = 100;
