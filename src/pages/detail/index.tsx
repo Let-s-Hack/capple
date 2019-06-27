@@ -31,10 +31,10 @@ export default class Detail extends React.Component<IDetail, IState> {
   };
 
   timeoutDetailId: any;
-  timeoutUnLikeId: any;
+  timeoutJudgeId: any;
 
   componentDidUpdate() {
-    const { isUnLike, isDetail } = this.props.user;
+    const { isUnLike, isMatching, isDetail } = this.props.user;
 
     // 詳細画面から戻るときだけ呼ぶ
     if (!isDetail) {
@@ -46,10 +46,10 @@ export default class Detail extends React.Component<IDetail, IState> {
     }
 
     // いまいちボタンが押されたときだけ呼ぶ
-    if (isUnLike) {
+    if (isUnLike || isMatching) {
       // 連続で呼ばれるのを防ぐ
-      clearTimeout(this.timeoutUnLikeId);
-      this.timeoutUnLikeId = setTimeout(() => {
+      clearTimeout(this.timeoutJudgeId);
+      this.timeoutJudgeId = setTimeout(() => {
         this.state.containerNode.current.scrollTop = 0;
       }, 300);
     }
