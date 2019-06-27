@@ -67,7 +67,10 @@ const PoseImage = posed.div({
     },
   },
   hidden: {
-    y: 88,
+    y: (props: any) => {
+      const scrollTop = props.node.current.scrollTop;
+      return scrollTop + 88;
+    },
     width: 'calc(100% - 32px)',
     minHeight: () => window.innerHeight - 198 + 'px',
     borderRadius: 16,

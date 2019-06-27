@@ -21,13 +21,13 @@ interface IDetail {
 
 interface IState {
   isShowHeader: boolean;
-  node: any;
+  containerNode: any;
 };
 
 export default class Detail extends React.Component<IDetail, IState> {
   public state: IState = {
     isShowHeader: false,
-    node: React.createRef(),
+    containerNode: React.createRef(),
   };
 
   timeoutDetailId: any;
@@ -41,7 +41,7 @@ export default class Detail extends React.Component<IDetail, IState> {
       // 連続で呼ばれるのを防ぐ
       clearTimeout(this.timeoutDetailId);
       this.timeoutDetailId = setTimeout(() => {
-        this.state.node.current.scrollTop = 0;
+        this.state.containerNode.current.scrollTop = 0;
       }, 300);
     }
 
@@ -50,7 +50,7 @@ export default class Detail extends React.Component<IDetail, IState> {
       // 連続で呼ばれるのを防ぐ
       clearTimeout(this.timeoutUnLikeId);
       this.timeoutUnLikeId = setTimeout(() => {
-        this.state.node.current.scrollTop = 0;
+        this.state.containerNode.current.scrollTop = 0;
       }, 300);
     }
   }
@@ -83,14 +83,10 @@ export default class Detail extends React.Component<IDetail, IState> {
       scrollEventFlag = false;
       
       setTimeout(() => {
-        if (this.headerScrollTopPosition < this.state.node.current.scrollTop) {
-          this.setState({
-            isShowHeader: true,
-          })
+        if (this.headerScrollTopPosition < this.state.containerNode.current.scrollTop) {
+          this.setState({ isShowHeader: true })
         } else {
-          this.setState({
-            isShowHeader: false,
-          })
+          this.setState({ isShowHeader: false })
         }
 
         scrollEventFlag = true;
@@ -101,7 +97,7 @@ export default class Detail extends React.Component<IDetail, IState> {
       <Container
         pose={this.props.user.isDetail ? 'visible' : 'hidden'}
         onScroll={handleScroll}
-        ref={this.state.node}
+        ref={this.state.containerNode}
       >
         <Header pose={this.state.isShowHeader ? 'visibleHeader' : 'hiddenHeader'}>
           <CloseButton>
@@ -114,7 +110,10 @@ export default class Detail extends React.Component<IDetail, IState> {
           </CloseButton>
           <HeaderInner>
             <HeaderImage>
-              <img src={this.props.user.mainImage} alt="プロフィール画像"/>
+              <img
+                src={this.props.user.mainImage}
+                alt="プロフィール画像"
+              />
             </HeaderImage>
             <HeaderTitle>{this.props.user.name}</HeaderTitle>
           </HeaderInner>
@@ -124,7 +123,7 @@ export default class Detail extends React.Component<IDetail, IState> {
             </svg>
           </OptionButton>
         </Header>
-        <Image>
+        <Image node={this.state.containerNode}>
           <img src={this.props.user.mainImage} alt="プロフィール画像"/>
         </Image>
         <Profile>
@@ -132,7 +131,7 @@ export default class Detail extends React.Component<IDetail, IState> {
             <MainTextGroup>
               <MainTitle>
                 {this.props.user.name}
-                { this.props.user.isNew && <New />}
+                {this.props.user.isNew && <New />}
               </MainTitle>
               <Text>
                 {this.props.user.age}歳・{this.props.user.place}
